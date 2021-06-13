@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.send('respond with a resource！！！');
 });
-router.get('/cool', function(req, res, next) {
-  res.send('你好cool11');
+router.get('/system', function(req, res, next) {
+  res.send('系统接口');
 });
 module.exports = router;
