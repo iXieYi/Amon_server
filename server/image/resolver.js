@@ -10,8 +10,8 @@ const URL = require('url');
 const path = require('path');
 const fs = require('fs');
 const staticServer = require('node-static');
-const config = require('../server/image/config');
-const LogUtil = require('../server/image/log');
+const config = require('./config');
+const LogUtil = require('./log');
 var express = require('express');
 
 const RESOURCE_ROOT = config.ConfigManager.getInstance().getValue(config.keys.KEY_IMAGE_DIR);

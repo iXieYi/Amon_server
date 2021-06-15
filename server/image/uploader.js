@@ -12,12 +12,12 @@ const fs = require('fs');
 var express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const webpConverter = require('../server/image/webp-converter');
-const LogUtil = require('../server/image/log');
-const config = require('../server/image/config');
-const WaterMarker = require('../server/image/watermarker');
+const webpConverter = require('./webp-converter');
+const LogUtil = require('./log');
+const config = require('./config');
+const WaterMarker = require('./watermarker');
 
-const UniResult = require('../server/image/universal-result');
+const UniResult = require('./universal-result');
 
 // 获取基本配置信息
 const TARGET_DIR = config.ConfigManager.getInstance().getValue(config.keys.KEY_IMAGE_DIR);

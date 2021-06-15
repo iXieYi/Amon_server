@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-01-21 15:47:01
- * @LastEditTime: 2021-06-15 20:46:25
+ * @LastEditTime: 2021-06-15 21:46:38
  * @LastEditors: Please set LastEditors
  * @Description: 入口
  * @FilePath: /Amon_server/app.js
@@ -22,8 +22,8 @@ const moment = require('moment');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
-var uploader = require('./routes/uploader');
-var resolver = require('./routes/resolver');
+var uploader = require('./server/image/uploader');
+var resolver = require('./server/image/resolver');
 var logIn = require('./server/base/login');
 
 var app = express();
