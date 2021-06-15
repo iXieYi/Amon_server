@@ -1,7 +1,7 @@
 /*
  * @Author:凡琛
  * @Date: 2021-06-13 21:58:35
- * @LastEditTime: 2021-06-15 10:50:32
+ * @LastEditTime: 2021-06-15 14:46:10
  * @LastEditors: Please set LastEditors
  * @Description: 图像访问解析
  * @FilePath: /Amon_server/routes/resolver.js
@@ -9,7 +9,6 @@
 const URL = require('url');
 const path = require('path');
 const fs = require('fs');
-const http = require('http');
 const staticServer = require('node-static');
 const config = require('../server/image/config');
 const LogUtil = require('../server/image/log');

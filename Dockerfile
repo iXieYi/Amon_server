@@ -1,8 +1,6 @@
 #依赖基础镜像
 FROM node
 
-MAINTAINER 凡琛
-
 #容器内项目存放目录   TODO 文件服务地址需要调整
 RUN mkdir -p /home/nodeapp && mkdir -p /Users/apple/Desktop/images
 
