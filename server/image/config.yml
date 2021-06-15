@@ -1,4 +1,5 @@
 # The path for store your images, better be an absolute path
+# 要做配置修改
 img_dir: /Users/apple/Desktop/images
 
 # Whether or not bind 127.0.0.1

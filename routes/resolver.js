@@ -1,7 +1,7 @@
 /*
  * @Author:凡琛
  * @Date: 2021-06-13 21:58:35
- * @LastEditTime: 2021-06-13 22:50:07
+ * @LastEditTime: 2021-06-15 10:50:32
  * @LastEditors: Please set LastEditors
  * @Description: 图像访问解析
  * @FilePath: /Amon_server/routes/resolver.js
@@ -25,6 +25,7 @@ var _fileServer = new staticServer.Server(RESOURCE_ROOT, {
     gzip: true
 });
 router.use('/', (req, res) => {
+    // 根据不同文件路径做分发
     getImageFromSource(req,res);
 });
 const _getImagePath = (isAbsolutePath, needWebp, pathInfo) => {
