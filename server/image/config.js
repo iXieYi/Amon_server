@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-11 23:04:25
- * @LastEditTime: 2021-06-13 21:56:23
+ * @LastEditTime: 2021-06-16 10:45:21
  * @LastEditors: Please set LastEditors
  * @Description: 图片服务器配置
  * @FilePath: /coderyuan-image-server/config.js
@@ -18,10 +18,8 @@ let _instance;
  */
 const keys = {
     KEY_IMAGE_DIR: 'img_dir',
-    KEY_RESOLVE_SERVER_PORT: 'resolve_server_port',
     KEY_LOG_ENABLE: 'log_enable',
     KEY_ACCESS_TOKEN: 'access_token',
-    KEY_UPLOADER_SERVER_PORT: 'uploader_server_port',
     KEY_RESOLVER_ENABLE: 'resolver_enable',
     KEY_UPLOADER_ENABLE: 'uploader_enable',
     KEY_WATERMARK_PATH: 'watermark_path',

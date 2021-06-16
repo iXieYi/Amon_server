@@ -1,31 +1,25 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-01-21 15:47:01
- * @LastEditTime: 2021-06-16 09:21:31
+ * @LastEditTime: 2021-06-16 10:58:26
  * @LastEditors: Please set LastEditors
  * @Description: 入口
  * @FilePath: /Amon_server/app.js
  */
 var createError = require('http-errors');
 var express = require('express');
-
 var path = require('path');
-const config = require('./server/config');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// const redis = require('redis');
+const config = require('./server/config');
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
 const moment = require('moment');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var apiRouter = require('./routes/api');
-var uploader = require('./server/image/uploader');
-var resolver = require('./server/image/resolver');
-var login = require('./server/base/login');
-
+//统一路由
+const router = require('./router');
+const myLogger = require('./server/common/logger');
 var app = express();
 
 // view engine setup
@@ -38,6 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Redis
 app.use(session({
   store: new redisStore(config.redis),
   resave: true,
@@ -45,7 +40,7 @@ app.use(session({
   secret: config.session_secret
 }));
 
-// locals
+// Locals
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
   res.locals.moment = moment;
@@ -53,15 +48,7 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/api',apiRouter);
-app.use('/uploader',uploader);
-app.use('/images',resolver);
-app.use('/login',login);
-
-
-
+app.use('/', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -78,5 +65,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.listen(config.port,() => {
+//   myLogger.info('server listening on port：' + config.port);
+// })
 
 module.exports = app;

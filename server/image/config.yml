@@ -5,12 +5,6 @@ img_dir: /Users/apple/Desktop/images
 # Whether or not bind 127.0.0.1
 bind_local_address: true
 
-# Port for running image resolve process
-resolve_server_port: 18000
-
-# Port for running image uploader process
-uploader_server_port: 18001
-
 # Your AccessToken for upload images, generate by yourself
 access_token: '000'
 
@@ -36,4 +30,4 @@ generate_webp: true
 image_server_url_prefix: 'http://127.0.0.1:3000/images/'
 
 # Max upload image file size(MB)
-max_image_size: 5
+max_image_size: 25

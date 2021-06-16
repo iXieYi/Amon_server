@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-06-15 20:45:37
+ * @LastEditTime: 2021-06-16 09:40:00
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -12,14 +12,12 @@ const _ = require('lodash'),
   models = require('../models/index'),
   Op = models.Sequelize.Op;
 
-var express = require('express');
-var router = express.Router();
-
-class loginController {
+class loginManager {
   async login(req, res, next) {
     //登录接口校验
-    let loginname = req.body.loginname;
+    let loginname = req.body.loginName;
     let password = req.body.password;
+    // TODO 兜底逻辑
     const user = await models.user.findOne({
       where: {
         login_name: loginname
@@ -78,7 +76,4 @@ class loginController {
   }
 }
 
-var login = new loginController();
-router.post('/', login.login);
-
-module.exports = router;
+module.exports = new loginManager();
