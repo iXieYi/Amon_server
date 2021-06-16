@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-16 17:25:44
+ * @LastEditTime: 2021-06-16 17:29:34
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -48,7 +48,6 @@ class uploadManager {
     if (!await checkLoginStatus(req,res)) {
       return;
     }
-  
     const noWaterMark = (req.query.nomark === '1');
     upload(req, res, (err) => {
       if (err) {

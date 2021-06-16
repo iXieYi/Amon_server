@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:46:51
- * @LastEditTime: 2021-06-16 16:41:34
+ * @LastEditTime: 2021-06-16 17:43:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/server/models/user.js
@@ -13,9 +13,14 @@ module.exports = (sequelize, DataTypes) => {
     let User = sequelize.define('user', {
         id: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
+            primaryKey: false,
             unique: true,
             autoIncrement: true
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            unique: true,
         },
         /**登录用户名 */
         login_name: {

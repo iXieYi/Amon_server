@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-06-16 16:50:34
+ * @LastEditTime: 2021-06-16 18:01:32
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -13,7 +13,7 @@ const _ = require('lodash'),
   Op = models.Sequelize.Op;
 
 //引入token组件
-const { createToken, varifyToken } = require('../common/token');
+const { createToken, resetToken } = require('../common/token');
 
 class loginManager {
   //登录
@@ -88,7 +88,7 @@ class loginManager {
   }
   // 注销
   async logout(req, res, next) {
-    console.log('注销', req.session.id);
+    resetToken(req,res);
     req.session.destroy(function () {
       res.send({
         msg: "用户注销"

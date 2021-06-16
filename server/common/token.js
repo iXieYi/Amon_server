@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-16 11:37:30
- * @LastEditTime: 2021-06-16 17:25:24
+ * @LastEditTime: 2021-06-16 18:06:15
  * @LastEditors: Please set LastEditors
  * @Description: Token 处理函数
  * @FilePath: /Amon_server/server/common/token.js
@@ -57,25 +57,41 @@ const varifyToken = (token) => {
  * @param {*} res
  * @return {*}
  */
-// userid
 const checkLoginStatus = async (req, res) => {
-  const token = req.query.token;
+  const {token,user_id} = req.query;
   const user = await models.user.findOne({
     where: {
-      token: token
+      user_id: user_id
     }
   });
+  // console.log("token",token);
+  // console.log("user.token", user.token);
   const isEffective = user ? token == user.token : false;
-  console.log('isEffective', isEffective); 
   if (!isEffective) {
     res.send({
-      msg: "未登录，请登录后重试！"
+      msg: "登录失效，请登录后重试！"
     });
   }
   return isEffective;
 }
+/**
+ * @description: 重置Token
+ * @param {*} async
+ * @param {*} res
+ * @return {*}
+ */
+const resetToken = async (req,res) =>{
+  const {user_id} = req.query;
+  const user = await models.user.findOne({
+    where: {
+      user_id: user_id
+    }
+  });
+  user.token = null;
+  await user.save();
+}
 
 
 
-module.exports = { createToken, varifyToken, checkLoginStatus };
+module.exports = { createToken, varifyToken, checkLoginStatus,resetToken };
 
