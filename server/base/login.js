@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-06-16 09:40:00
+ * @LastEditTime: 2021-06-16 16:50:34
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -12,8 +12,14 @@ const _ = require('lodash'),
   models = require('../models/index'),
   Op = models.Sequelize.Op;
 
+//引入token组件
+const { createToken, varifyToken } = require('../common/token');
+
 class loginManager {
+  //登录
   async login(req, res, next) {
+    console.log('req.cookies', req.cookies["connect.sid"]);
+    console.log('req.session.id', req.session.id);
     //登录接口校验
     let loginname = req.body.loginName;
     let password = req.body.password;
@@ -22,7 +28,7 @@ class loginManager {
       where: {
         login_name: loginname
       }
-    });
+    });    
     if (user === null) {
       return res.send({
         state: false,
@@ -63,9 +69,15 @@ class loginManager {
       req.session.menu = userMenu;
 
       logger.info("用户：" + loginname + "登录成功！");
+      
+      // 生成token 存入数据库 (获取当前用户)
+      const token = createToken({}, 1);
+      user.token = token;
+      await user.save();
       return res.send({
         state: true,
-        msg: "登录成功！"
+        msg: "登录成功！",
+        token:token
       })
     } else {
       return res.send({
@@ -73,6 +85,15 @@ class loginManager {
         msg: "用户名或密码错误！"
       })
     }
+  }
+  // 注销
+  async logout(req, res, next) {
+    console.log('注销', req.session.id);
+    req.session.destroy(function () {
+      res.send({
+        msg: "用户注销"
+      });
+    });
   }
 }
 

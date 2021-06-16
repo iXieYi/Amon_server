@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 11:59:44
- * @LastEditTime: 2021-06-16 10:09:38
+ * @LastEditTime: 2021-06-16 14:06:07
  * @LastEditors: Please set LastEditors
  * @Description: 统一配置路由
  * @FilePath: /Amon_server/server/router.js
@@ -14,6 +14,9 @@ const imageManager = require('./server/image/resolver');
 
 // 登录
 router.post('/login',loginManager.login);
+// 注销
+router.get('/logout',loginManager.logout);
+
 
 // 文件上传
 router.post('/uploadFile',uploadManager.uploadFile);

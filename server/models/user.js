@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:46:51
- * @LastEditTime: 2021-06-15 18:14:18
- * @LastEditors: your name
+ * @LastEditTime: 2021-06-16 16:41:34
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/server/models/user.js
  */
@@ -82,6 +82,11 @@ module.exports = (sequelize, DataTypes) => {
             get() {
                 return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
             }
+        },
+        token:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: null
         }
     }, {
         freezeTableName: true,

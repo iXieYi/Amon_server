@@ -13,11 +13,13 @@
     "debug": "~2.6.9",
     "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
     "express-session": "^1.16.2",
     "gm": "^1.23.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "js-yaml": "^3.10.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "log4js": "^5.0.0",
     "moment": "^2.21.0",
@@ -27,7 +29,7 @@
     "mysql2": "^1.6.5",
     "node-static": "^0.7.10",
     "redis": "^3.1.2",
-    "sequelize": "^5.16.0"  
+    "sequelize": "^5.16.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

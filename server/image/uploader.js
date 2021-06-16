@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-16 09:54:57
+ * @LastEditTime: 2021-06-16 17:25:44
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -9,8 +9,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const express = require('express');
-const bodyParser = require('body-parser');
 const multer = require('multer');
 const webpConverter = require('./webp-converter');
 const LogUtil = require('./log');
@@ -19,6 +17,7 @@ const WaterMarker = require('./watermarker');
 
 const UniResult = require('./universal-result');
 
+const { checkLoginStatus } = require('../common/token');
 // 获取基本配置信息
 const TARGET_DIR = config.ConfigManager.getInstance().getValue(config.keys.KEY_IMAGE_DIR);
 const GEN_WEBP = config.ConfigManager.getInstance().getValue(config.keys.KEY_GEN_WEBP);
@@ -32,7 +31,6 @@ const upload = multer({
     console.log(file);
     const pToken = req.query.accessToken;
     const configToken = config.ConfigManager.getInstance().getValue(config.keys.KEY_ACCESS_TOKEN);
-    console.log(configToken);
     // Check token
     if (pToken !== configToken) {
       callback(new Error('token is invalid'), false);
@@ -47,6 +45,10 @@ const upload = multer({
 
 class uploadManager {
   async uploadFile(req, res) {
+    if (!await checkLoginStatus(req,res)) {
+      return;
+    }
+  
     const noWaterMark = (req.query.nomark === '1');
     upload(req, res, (err) => {
       if (err) {
