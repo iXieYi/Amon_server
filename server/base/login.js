@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-06-16 18:01:32
+ * @LastEditTime: 2021-06-17 13:24:31
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -21,12 +21,12 @@ class loginManager {
     console.log('req.cookies', req.cookies["connect.sid"]);
     console.log('req.session.id', req.session.id);
     //登录接口校验
-    let loginname = req.body.loginName;
+    let userName = req.body.userName;
     let password = req.body.password;
     // TODO 兜底逻辑
     const user = await models.user.findOne({
       where: {
-        login_name: loginname
+        login_name: userName
       }
     });    
     if (user === null) {
@@ -68,8 +68,7 @@ class loginManager {
       });
       req.session.menu = userMenu;
 
-      logger.info("用户：" + loginname + "登录成功！");
-      
+      logger.info("用户：" + userName + "登录成功！");
       // 生成token 存入数据库 (获取当前用户)
       const token = createToken({}, 1);
       user.token = token;

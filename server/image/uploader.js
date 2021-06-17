@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-16 17:29:34
+ * @LastEditTime: 2021-06-17 13:24:54
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -28,7 +28,7 @@ const MAX_IMAGE_SIZE = config.ConfigManager.getInstance().getValue(config.keys.K
 const upload = multer({
   dest: config.ConfigManager.getInstance().getImageTempPath(),
   fileFilter: (req, file, callback) => {
-    console.log(file);
+    // console.log(file);
     const pToken = req.query.accessToken;
     const configToken = config.ConfigManager.getInstance().getValue(config.keys.KEY_ACCESS_TOKEN);
     // Check token
@@ -45,9 +45,6 @@ const upload = multer({
 
 class uploadManager {
   async uploadFile(req, res) {
-    if (!await checkLoginStatus(req,res)) {
-      return;
-    }
     const noWaterMark = (req.query.nomark === '1');
     upload(req, res, (err) => {
       if (err) {
