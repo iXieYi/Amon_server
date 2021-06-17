@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-16 11:37:30
- * @LastEditTime: 2021-06-17 13:23:47
+ * @LastEditTime: 2021-06-17 13:30:08
  * @LastEditors: Please set LastEditors
  * @Description: Token 处理函数
  * @FilePath: /Amon_server/server/common/token.js
@@ -36,7 +36,6 @@ const createToken = function (data, exp) {
  * @return {*} 校验结果
  */
 const varifyToken = (token) => {
-  console.log('token',token);
   var info = jwt.verify(token, secret, (error, res) => {
     var data = {};          
     if (error) {

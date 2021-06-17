@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:09:01
- * @LastEditTime: 2021-06-15 20:49:54
+ * @LastEditTime: 2021-06-17 17:28:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/config.js
@@ -24,7 +24,7 @@ module.exports = {
   // sqldb
   sqldb: {
     db: 'mysql',
-    host: '127.0.0.1',
+    host: process.env.CURRENT_ENV == 'development' ? '127.0.0.1':'172.17.0.3',
     database: 'express_admin',
     username: 'root',
     password: '123456',
@@ -32,7 +32,7 @@ module.exports = {
   },
   // redis
   redis: {
-    host: '127.0.0.1',
+    host: process.env.CURRENT_ENV == 'development' ? '127.0.0.1':'172.17.0.2',
     port: 6379,
     db: 0,
     pass: '',
