@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-18 15:11:45
+ * @LastEditTime: 2021-06-18 17:43:14
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -17,6 +17,7 @@ const WaterMarker = require('./watermarker');
 
 const UniResult = require('../common/universal-result');
 const { response } = require('../common/response');
+const { randNum } = require('../common/utils');
 // 获取基本配置信息
 const TARGET_DIR = config.ConfigManager.getInstance().getValue(config.keys.KEY_IMAGE_DIR);
 const GEN_WEBP = config.ConfigManager.getInstance().getValue(config.keys.KEY_GEN_WEBP);
@@ -45,6 +46,7 @@ const upload = multer({
 class uploadManager {
   async uploadFile(req, res) {
     const noWaterMark = (req.query.nomark === '1');
+    const { user_id = '' } = req.query;
     upload(req, res, (err) => {
       if (err) {
         LogUtil.error(err);
@@ -55,7 +57,8 @@ class uploadManager {
         return response(res,UniResult.Errors.PARAM_ERROR);
       }
       let ext = path.parse(file.originalname).ext;
-      let ts = (new Date() * 1);  //用UUID来替换，userId+时间戳，UserId +时间 +随机
+      //用UUID来替换，userId + 时间戳 + 2位随机数
+      let ts = user_id + (new Date() * 1) + randNum(2);  
       let fileName = `${ts}${ext}`;
       let imageFilePath = path.join(TARGET_DIR, fileName);
       // If enable watermark, add watermark and save to target path.

@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-18 15:53:38
- * @LastEditTime: 2021-06-18 17:25:50
+ * @LastEditTime: 2021-06-18 17:42:24
  * @LastEditors: Please set LastEditors
  * @Description: 通用工具类
  * @FilePath: /Amon_server/server/common/utils.js
@@ -24,6 +24,7 @@ const currentDate = () => {
     return yyyyMMdd;
 }
 
+/*  创建用户id */
 const createUseId = async () => {
     const prefix = currentDate();
     var user_id = prefix;
@@ -48,10 +49,19 @@ const createUseId = async () => {
             user_id = max_id + 1;
         }
     }).catch(function (error) {
-        logger.info("user_id创建error: "+error);
+        logger.info("user_id创建error: " + error);
     });
     logger.info("user_id: " + user_id + " 创建");
     return user_id.toString();
 }
 
-module.exports = { currentDate, createUseId }
+const randNum = (n) => {
+    var num = ''; 
+    for (var i = 0; i < n; i++) 
+    { 
+        num += Math.floor(Math.random() * 10); 
+    }
+    return num;
+}
+
+module.exports = { randNum,currentDate, createUseId }
