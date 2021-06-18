@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-01-21 15:47:01
- * @LastEditTime: 2021-06-16 13:18:50
+ * @LastEditTime: 2021-06-18 10:41:28
  * @LastEditors: Please set LastEditors
  * @Description: 入口
  * @FilePath: /Amon_server/app.js
@@ -21,6 +21,10 @@ const moment = require('moment');
 //统一路由
 const router = require('./router');
 const myLogger = require('./server/common/logger');
+
+var fs = require('fs');
+var accessLog = fs.createWriteStream('access.log', { flags: 'a' });
+var errorLog = fs.createWriteStream('../error.log', {flags : 'a'})
 var app = express();
 
 // view engine setup
@@ -28,6 +32,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+//错误日志输出
+app.use(logger('combined',{ stream: accessLog }));
+app.use(logger('combined',{ stream: errorLog }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-06-17 17:25:39
+ * @LastEditTime: 2021-06-18 10:19:48
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -18,8 +18,8 @@ const { createToken, resetToken } = require('../common/token');
 class loginManager {
   //登录
   async login(req, res, next) {
-    console.log('req.cookies', req.cookies["connect.sid"]);
-    console.log('req.session.id', req.session.id);
+    // console.log('req.cookies', req.cookies["connect.sid"]);
+    // console.log('req.session.id', req.session.id);
     //登录接口校验
     let userName = req.body.userName;
     let password = req.body.password;
@@ -68,7 +68,7 @@ class loginManager {
       });
       req.session.menu = userMenu;
 
-      logger.info("用户：" + userName + "登录成功！");
+      logger.info("用户：" + userName + " 登录成功！");
       // 生成token 存入数据库 (获取当前用户)
       const token = createToken({}, 1);
       user.token = token;
