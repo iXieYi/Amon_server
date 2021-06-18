@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 09:06:16
- * @LastEditTime: 2021-06-17 13:24:39
+ * @LastEditTime: 2021-06-18 08:46:32
  * @LastEditors: Please set LastEditors
  * @Description: 用户请求鉴权
  * @FilePath: /Amon_server/server/middleware/auth.js
@@ -20,6 +20,10 @@ class authMiddleware {
             });
         }
         await next();
+    }
+     /**用户鉴权 TODO */
+    async authUserPermission(req, res, next){
+
     }
 }
 
