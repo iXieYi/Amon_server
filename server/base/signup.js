@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 08:50:55
- * @LastEditTime: 2021-06-18 15:05:23
+ * @LastEditTime: 2021-06-18 17:26:36
  * @LastEditors: Please set LastEditors
  * @Description: 用户注册接口
  * @FilePath: /Amon_server/server/base/signup
@@ -9,9 +9,13 @@
 const models = require('../models/index');
 const crypto = require('crypto');
 const { isNull } = require('lodash');
+const { createUseId } = require('../common/utils');
+Op = models.Sequelize.Op;
+
 class signUpManager {
   /** 新增用户 */
   async createUser(req, res, next) {
+    const user_id = await createUseId();
     const { userName = '', branch_id = 0, position_id = '', position_name = '', real_name = '', mobile = '', is_enabled = true } = req.body;
     //检查用户名
     let usr = await models.user.findAll({
@@ -27,18 +31,18 @@ class signUpManager {
     }
     //生成user_id
 
-
     //根据单位id查询
     const branch_model = await models.branch.findByPk(branch_id);
+    const position_model = await models.position.findByPk(position_id);
     const login_password = crypto.createHash('md5').update(req.body.login_password).digest('hex');
     await models.user.create({
-      user_id: req.body.user_id,
+      user_id,
       login_name: userName,
       login_password,
       branch_id,
       branch_name: !branch_model ? '' : branch_model.name,
       position_id,
-      position_name,
+      position_name: !position_model ? '' : position_model.name,
       real_name,
       mobile,
       is_enabled
