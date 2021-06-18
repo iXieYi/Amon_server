@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 09:06:16
- * @LastEditTime: 2021-06-18 08:46:32
+ * @LastEditTime: 2021-06-18 15:06:13
  * @LastEditors: Please set LastEditors
  * @Description: 用户请求鉴权
  * @FilePath: /Amon_server/server/middleware/auth.js
@@ -15,9 +15,10 @@ class authMiddleware {
         const { tokenInfo = {} } = result;
         // console.log('tokenInfo',tokenInfo);
         if (!result.isEffective) {
-            return res.send({
-                msg: tokenInfo.msg
-            });
+            return response(res, {
+                state: false,
+                msg: tokenInfo.msg,
+              });
         }
         await next();
     }

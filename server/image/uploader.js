@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-17 13:24:54
+ * @LastEditTime: 2021-06-18 15:11:45
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -15,9 +15,8 @@ const LogUtil = require('./log');
 const config = require('./config');
 const WaterMarker = require('./watermarker');
 
-const UniResult = require('./universal-result');
-
-const { checkLoginStatus } = require('../common/token');
+const UniResult = require('../common/universal-result');
+const { response } = require('../common/response');
 // 获取基本配置信息
 const TARGET_DIR = config.ConfigManager.getInstance().getValue(config.keys.KEY_IMAGE_DIR);
 const GEN_WEBP = config.ConfigManager.getInstance().getValue(config.keys.KEY_GEN_WEBP);
@@ -49,13 +48,11 @@ class uploadManager {
     upload(req, res, (err) => {
       if (err) {
         LogUtil.error(err);
-        doResponse(null, err);
-        return;
+        return response(res,null,err);
       }
       let file = req.file;
       if (!file) {
-        doResponse(UniResult.Errors.PARAM_ERROR);
-        return;
+        return response(res,UniResult.Errors.PARAM_ERROR);
       }
       let ext = path.parse(file.originalname).ext;
       let ts = (new Date() * 1);  //用UUID来替换，userId+时间戳，UserId +时间 +随机
@@ -75,7 +72,7 @@ class uploadManager {
             return;
           } else {
             LogUtil.error(err);
-            doResponse(null, err);
+            response(res,null,err);
           }
         })
       } else {
@@ -88,33 +85,18 @@ class uploadManager {
       fs.rename(currentPath, destPath, (err) => {
         if (err) {
           LogUtil.error(err);
-          doResponse(null, err);
+          response(res,null,err);
           return;
         } else {
           // If enable webp, convert the image to webp but ignore the result.
           if (GEN_WEBP) {
             webpConverter.convertToWebP(destPath, destPath + '.webp');
           }
-          doResponse({
+          response(res,{
             url: `${URL_RREFIX}${fileName}`
           });
         }
       });
-    };
-
-    /**
-     * Send JSON response.
-     * 
-     * @param {UniResult} data 
-     * @param {Error|null} err 
-     */
-    const doResponse = (data, err = null) => {
-      if (data) {
-        res.json(UniResult.UniResult.getSuccess(data));
-      } else {
-        res.json(UniResult.UniResult.getError(-1, err.message))
-      }
-      res.end();
     };
   }
 }

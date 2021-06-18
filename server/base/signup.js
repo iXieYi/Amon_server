@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 08:50:55
- * @LastEditTime: 2021-06-17 11:54:50
+ * @LastEditTime: 2021-06-18 15:05:23
  * @LastEditors: Please set LastEditors
  * @Description: 用户注册接口
  * @FilePath: /Amon_server/server/base/signup
@@ -20,11 +20,10 @@ class signUpManager {
       }
     });
     if (usr.length > 0) {
-      res.send({
+      return response(res, {
         state: false,
-        msg: "用户名已存在！"
+        msg: "用户名已存在！",
       });
-      return;
     }
     //生成user_id
 
@@ -44,33 +43,31 @@ class signUpManager {
       mobile,
       is_enabled
     });
-    res.send({
+    response(res, {
       state: true,
-      msg: "注册成功"
+      msg: "注册成功",
     });
   }
 
   /* 编辑用户信息 */
   async editUser(req, res, next) {
     // 解析请求参数
-    const { user_id = '',login_password, branch_id = '', position_id = '', real_name = '', mobile = '', is_enabled = null } = req.body;
-    
+    const { user_id = '', login_password, branch_id = '', position_id = '', real_name = '', mobile = '', is_enabled = null } = req.body;
+
     if (user_id == '') {
-      res.send({
+      return response(res, {
         state: false,
-        msg: "user_id 为空"
+        msg: "user_id 为空",
       });
-      return;
     }
     let model = await models.user.findByPk(user_id);
-    console.log('model',model);
+    console.log('model', model);
     // 判断用户是否存在
     if (!model) {
-      res.send({
+      return response(res, {
         state: false,
-        msg: "用户不存在"
+        msg: "用户不存在",
       });
-      return;
     }
 
     //修改单位信息
@@ -103,9 +100,9 @@ class signUpManager {
       model.login_password = crypto.createHash('md5').update(req.body.login_password).digest('hex');
     }
     await model.save();
-    res.send({
+    response(res, {
       state: true,
-      msg: "修改完成"
+      msg: "修改完成",
     });
   }
 
@@ -113,11 +110,10 @@ class signUpManager {
   async deleteUser(req, res, next) {
     const { user_id } = req.body;
     if (isNull(user_id)) {
-      res.send({
-        state: true,
-        msg: "user_id 不可为空"
+      return response(res, {
+        state: false,
+        msg: "user_id 不可为空",
       });
-      return;
     }
     // 判断用户是否存在
     const usr = await models.user.findAll({
@@ -126,11 +122,10 @@ class signUpManager {
       }
     });
     if (usr.length <= 0) {
-      res.send({
-        state: true,
-        msg: "用户不存在"
+      return response(res, {
+        state: false,
+        msg: "用户不存在",
       });
-      return;
     }
 
     // 删除用户
@@ -139,10 +134,9 @@ class signUpManager {
         user_id: user_id
       }
     });
-
-    res.send({
+    response(res, {
       state: true,
-      msg: "删除成功"
+      msg: "删除成功",
     });
   }
 

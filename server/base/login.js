@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-06-18 10:19:48
+ * @LastEditTime: 2021-06-18 15:22:35
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -21,25 +21,29 @@ class loginManager {
     // console.log('req.cookies', req.cookies["connect.sid"]);
     // console.log('req.session.id', req.session.id);
     //登录接口校验
-    let userName = req.body.userName;
-    let password = req.body.password;
-    // TODO 兜底逻辑
+    const { userName = '',password = '' } = req.body;
+    if (userName === '' || password === '') {
+      return response(res,{
+        state: false,
+        msg: "用户名或密码不可为空",
+      });
+    }
     const user = await models.user.findOne({
       where: {
         login_name: userName
       }
     });    
     if (user === null) {
-      return res.send({
+      return response(res,{
         state: false,
-        msg: "用户名或密码错误！"
-      })
+        msg: "用户名或密码错误！",
+      });
     }
     if (user.is_enabled == 0) {
-      return res.send({
+      return response(res,{
         state: false,
-        msg: "禁止登录，请联系管理员！"
-      })
+        msg: "禁止登录，请联系管理员！",
+      });
     }
     if (crypto.createHash('md5').update(password).digest('hex') === user.login_password) {
       req.session.user = user;
@@ -73,24 +77,25 @@ class loginManager {
       const token = createToken({}, 1);
       user.token = token;
       await user.save();
-      return res.send({
+      return response(res,{
         state: true,
         msg: "登录成功！",
-        token:token
-      })
+        token
+      });
     } else {
-      return res.send({
+      return response(res,{
         state: false,
-        msg: "用户名或密码错误！"
-      })
+        msg: "用户名或密码错误！",
+      });
     }
   }
   // 注销
   async logout(req, res, next) {
     resetToken(req,res);
     req.session.destroy(function () {
-      res.send({
-        msg: "用户注销"
+      response(res,{
+        state: true,
+        msg: "用户注销成功",
       });
     });
   }
