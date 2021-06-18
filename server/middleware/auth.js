@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 09:06:16
- * @LastEditTime: 2021-06-18 15:06:13
+ * @LastEditTime: 2021-06-18 15:27:13
  * @LastEditors: Please set LastEditors
  * @Description: 用户请求鉴权
  * @FilePath: /Amon_server/server/middleware/auth.js
@@ -17,7 +17,8 @@ class authMiddleware {
         if (!result.isEffective) {
             return response(res, {
                 state: false,
-                msg: tokenInfo.msg,
+                tokenInfo,
+                msg:'用户登录失效',
               });
         }
         await next();
