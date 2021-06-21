@@ -58,7 +58,7 @@ const varifyToken = (token) => {
  * @return {*}
  */
 const checkLoginStatus = async (req, res) => {
-  const {token,user_id} = req.query;
+  const {token = '',user_id = ''} = req.query;
   // token 有效性校验
   const info = varifyToken(token); 
   var resultInfo = {

@@ -27,7 +27,9 @@ add_watermark: true
 generate_webp: true
 
 # The URL prefix of your image server for fetching image
-image_server_url_prefix: 'http://127.0.0.1:3000/images/' 
+image_server_url_prefix: 'http://127.0.0.1:3000/files/' 
 
 # Max upload image file size(MB)
 max_image_size: 25
+
+max_file_count: 30
