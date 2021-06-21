@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:09:01
- * @LastEditTime: 2021-06-17 17:41:03
+ * @LastEditTime: 2021-06-21 15:47:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/config.js
@@ -10,6 +10,14 @@
 // 服务配置
 
 'use strict';
+const env_sql = {
+  development:'127.0.0.1',
+  production:'172.17.0.2'
+}
+const env_redis = {
+  development:'127.0.0.1',
+  production: '172.17.0.3'
+}
 
 module.exports = {
   debug: true,
@@ -24,7 +32,7 @@ module.exports = {
   // sqldb
   sqldb: {
     db: 'mysql',
-    host: process.env.CURRENT_ENV == 'development' ? '127.0.0.1':'172.17.0.2',
+    host: env_sql[process.env.CURRENT_ENV],
     database: 'express_admin',
     username: 'root',
     password: '123456',
@@ -32,7 +40,7 @@ module.exports = {
   },
   // redis
   redis: {
-    host: process.env.CURRENT_ENV == 'development' ? '127.0.0.1':'172.17.0.3',
+    host: env_redis[process.env.CURRENT_ENV],
     port: 6379,
     db: 0,
     pass: '',

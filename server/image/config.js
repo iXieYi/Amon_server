@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-11 23:04:25
- * @LastEditTime: 2021-06-21 15:33:31
+ * @LastEditTime: 2021-06-21 15:48:12
  * @LastEditors: Please set LastEditors
  * @Description: 图片服务器配置
  * @FilePath: /coderyuan-image-server/config.js
@@ -32,6 +32,10 @@ const keys = {
   KEY_BIND_LOCAL: 'bind_local_address',
   KEY_MAX_COUNT:'max_file_count'
 };
+const env = {
+  development:'http://127.0.0.1:3000/files/',
+  production:'http://10.218.66.200:3000/files/'
+}
 
 /**
  * A manager for managing configs.
@@ -59,7 +63,7 @@ class ConfigManager {
   }
 
   static key_url_prefix() {
-    return (process.env.CURRENT_ENV == 'development' ? 'http://127.0.0.1:3000/' : 'http://10.218.66.200:3000/') + 'files/';
+    return env[process.env.CURRENT_ENV];
   }
   /**
    * get config value by key
