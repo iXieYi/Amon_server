@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:48:45
- * @LastEditTime: 2021-06-15 20:48:18
+ * @LastEditTime: 2021-06-21 17:36:51
  * @LastEditors: Please set LastEditors
  * @Description: 数据库model
  * @FilePath: /Amon_server/server/models/index.js

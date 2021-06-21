@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 08:50:55
- * @LastEditTime: 2021-06-18 17:26:36
+ * @LastEditTime: 2021-06-21 18:48:11
  * @LastEditors: Please set LastEditors
  * @Description: 用户注册接口
  * @FilePath: /Amon_server/server/base/signup
@@ -16,7 +16,14 @@ class signUpManager {
   /** 新增用户 */
   async createUser(req, res, next) {
     const user_id = await createUseId();
-    const { userName = '', branch_id = 0, position_id = '', position_name = '', real_name = '', mobile = '', is_enabled = true } = req.body;
+    const {
+      userName = '',
+      branch_id = 0,
+      position_id = '',
+      real_name = '',
+      mobile = '',
+      is_enabled = true
+    } = req.body;
     //检查用户名
     let usr = await models.user.findAll({
       where: {
@@ -29,8 +36,6 @@ class signUpManager {
         msg: "用户名已存在！",
       });
     }
-    //生成user_id
-
     //根据单位id查询
     const branch_model = await models.branch.findByPk(branch_id);
     const position_model = await models.position.findByPk(position_id);
@@ -56,7 +61,15 @@ class signUpManager {
   /* 编辑用户信息 */
   async editUser(req, res, next) {
     // 解析请求参数
-    const { user_id = '', login_password, branch_id = '', position_id = '', real_name = '', mobile = '', is_enabled = null } = req.body;
+    const {
+      user_id = '',
+      login_password,
+      branch_id = '',
+      position_id = '',
+      real_name = '',
+      mobile = '',
+      is_enabled = null
+    } = req.body;
 
     if (user_id == '') {
       return response(res, {

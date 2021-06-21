@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-21 15:29:49
+ * @LastEditTime: 2021-06-21 19:24:34
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -111,6 +111,7 @@ class uploadManager {
 
   // 多文件上传服务
   async uploadFiles(req, res) {
+    console.log(req.session);
     const { image_id = '' } = req.query;
     const target_dir = config.ConfigManager.getInstance().createImageToDestPath(image_id);
     uploadFiles(req, res, (err) => {
@@ -126,7 +127,6 @@ class uploadManager {
       var urls = [];
       files.forEach(file => {
         const ext = path.parse(file.originalname).ext;
-        console.log('file.originalname', file.originalname);
         let fileName = `${file.filename}${ext.toLowerCase()}`;
         let imageFilePath = path.join(TARGET_DIR, target_dir, fileName);
         const relativeName = path.join(target_dir, fileName);

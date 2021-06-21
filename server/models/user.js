@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:46:51
- * @LastEditTime: 2021-06-16 17:43:29
+ * @LastEditTime: 2021-06-21 16:30:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/server/models/user.js
@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: false,
-            unique: true,
             autoIncrement: true
         },
         user_id: {
