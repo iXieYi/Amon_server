@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-11 23:04:25
- * @LastEditTime: 2021-06-16 10:45:21
+ * @LastEditTime: 2021-06-18 17:53:28
  * @LastEditors: Please set LastEditors
  * @Description: 图片服务器配置
  * @FilePath: /coderyuan-image-server/config.js
@@ -55,6 +55,9 @@ class ConfigManager {
         return _instance;
     }
 
+    static key_url_prefix() {
+        return process.env.CURRENT_ENV == 'development' ?'http://127.0.0.1:3000/images/' : 'http://10.218.66.200:3000/images/';
+    }
     /**
      * get config value by key
      * 

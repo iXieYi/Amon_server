@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-18 17:43:14
+ * @LastEditTime: 2021-06-18 17:53:58
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -22,7 +22,7 @@ const { randNum } = require('../common/utils');
 const TARGET_DIR = config.ConfigManager.getInstance().getValue(config.keys.KEY_IMAGE_DIR);
 const GEN_WEBP = config.ConfigManager.getInstance().getValue(config.keys.KEY_GEN_WEBP);
 const ADD_WATERMARK = config.ConfigManager.getInstance().getValue(config.keys.KEY_ADD_WATERMARK);
-const URL_RREFIX = config.ConfigManager.getInstance().getValue(config.keys.KEY_URL_PREFIX);
+const URL_RREFIX = config.ConfigManager.key_url_prefix();
 const MAX_IMAGE_SIZE = config.ConfigManager.getInstance().getValue(config.keys.KEY_MAX_IMAGE_SIZE);
 // 初始化 multer
 const upload = multer({
