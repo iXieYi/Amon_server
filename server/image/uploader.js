@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-18 17:53:58
+ * @LastEditTime: 2021-06-21 11:05:56
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -28,7 +28,7 @@ const MAX_IMAGE_SIZE = config.ConfigManager.getInstance().getValue(config.keys.K
 const upload = multer({
   dest: config.ConfigManager.getInstance().getImageTempPath(),
   fileFilter: (req, file, callback) => {
-    // console.log(file);
+    console.log(file);
     const pToken = req.query.accessToken;
     const configToken = config.ConfigManager.getInstance().getValue(config.keys.KEY_ACCESS_TOKEN);
     // Check token
@@ -46,21 +46,24 @@ const upload = multer({
 class uploadManager {
   async uploadFile(req, res) {
     const noWaterMark = (req.query.nomark === '1');
-    const { user_id = '' } = req.query;
+    const { user_id = '', image_id = '' } = req.query;
+    const target_dir = config.ConfigManager.getInstance().createImageToDestPath(image_id);
     upload(req, res, (err) => {
       if (err) {
         LogUtil.error(err);
-        return response(res,null,err);
+        return response(res, null, err);
       }
       let file = req.file;
       if (!file) {
-        return response(res,UniResult.Errors.PARAM_ERROR);
+        return response(res, UniResult.Errors.PARAM_ERROR);
       }
       let ext = path.parse(file.originalname).ext;
       //用UUID来替换，userId + 时间戳 + 2位随机数
-      let ts = user_id + (new Date() * 1) + randNum(2);  
+      let ts = user_id + (new Date() * 1) + randNum(2);
       let fileName = `${ts}${ext}`;
-      let imageFilePath = path.join(TARGET_DIR, fileName);
+      let imageFilePath = path.join(TARGET_DIR,target_dir, fileName);
+      //获取相对文件名
+      const relativeName =  path.join(target_dir, fileName);
       // If enable watermark, add watermark and save to target path.
       if (ADD_WATERMARK && !noWaterMark) {
         const markedPath = file.path + '_marked';
@@ -71,31 +74,30 @@ class uploadManager {
                 LogUtil.error(err);
               }
             });
-            moveFile(markedPath, imageFilePath, fileName);
+            moveFile(markedPath, imageFilePath, relativeName);
             return;
           } else {
             LogUtil.error(err);
-            response(res,null,err);
+            response(res, null, err);
           }
         })
       } else {
         // If not enable watermark or get an error when adding watermark, rename directly.
-        moveFile(file.path, imageFilePath, fileName);
+        moveFile(file.path, imageFilePath, relativeName);
       }
     });
-
     const moveFile = (currentPath, destPath, fileName) => {
       fs.rename(currentPath, destPath, (err) => {
         if (err) {
           LogUtil.error(err);
-          response(res,null,err);
+          response(res, null, err);
           return;
         } else {
           // If enable webp, convert the image to webp but ignore the result.
           if (GEN_WEBP) {
             webpConverter.convertToWebP(destPath, destPath + '.webp');
           }
-          response(res,{
+          response(res, {
             url: `${URL_RREFIX}${fileName}`
           });
         }
