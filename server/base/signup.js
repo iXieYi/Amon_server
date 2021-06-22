@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 08:50:55
- * @LastEditTime: 2021-06-21 18:48:11
+ * @LastEditTime: 2021-06-22 10:56:29
  * @LastEditors: Please set LastEditors
  * @Description: 用户注册接口
  * @FilePath: /Amon_server/server/base/signup
@@ -15,7 +15,6 @@ Op = models.Sequelize.Op;
 class signUpManager {
   /** 新增用户 */
   async createUser(req, res, next) {
-    const user_id = await createUseId();
     const {
       userName = '',
       branch_id = 0,
@@ -36,6 +35,8 @@ class signUpManager {
         msg: "用户名已存在！",
       });
     }
+    // 创建用户ID
+    const user_id = await createUseId();
     //根据单位id查询
     const branch_model = await models.branch.findByPk(branch_id);
     const position_model = await models.position.findByPk(position_id);
@@ -54,6 +55,7 @@ class signUpManager {
     });
     response(res, {
       state: true,
+      user_id:user_id,
       msg: "注册成功",
     });
   }
@@ -78,7 +80,6 @@ class signUpManager {
       });
     }
     let model = await models.user.findByPk(user_id);
-    console.log('model', model);
     // 判断用户是否存在
     if (!model) {
       return response(res, {
@@ -133,12 +134,12 @@ class signUpManager {
       });
     }
     // 判断用户是否存在
-    const usr = await models.user.findAll({
+    const usr = await models.user.findOne({
       where: {
         user_id: user_id
       }
     });
-    if (usr.length <= 0) {
+    if (!usr) {
       return response(res, {
         state: false,
         msg: "用户不存在",

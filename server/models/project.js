@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:06:37
- * @LastEditTime: 2021-06-21 18:32:06
+ * @LastEditTime: 2021-06-22 10:07:42
  * @LastEditors: Please set LastEditors
  * @Description: 项目信息
  * @FilePath: /Amon_server/server/models/project.js
@@ -18,33 +18,38 @@ module.exports = (sequelize, DataTypes) => {
     },
     ProjectName: {
       type: DataTypes.STRING,
-      primaryKey: false,
-      unique: true,
+      allowNull: false,
+      defaultValue: ''
     },
     Location: {
       type: DataTypes.STRING,
-      primaryKey: false,
-      unique: true,
+      allowNull: true,
+      defaultValue: ''
     },
     ProjectType: {
       type: DataTypes.INTEGER,
-      primaryKey: false,
-      unique: true,
+      allowNull: false,
+      defaultValue: 0
+    },
+    Department: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: ''
     },
     Stage: {
       type: DataTypes.INTEGER,
-      primaryKey: false,
-      unique: true,
+      allowNull: false,
+      defaultValue: 0
     },
     Describe: {
       type: DataTypes.STRING,
-      primaryKey: false,
-      unique: true,
+      allowNull: false,
+      defaultValue: ''
     },
     Memo: {
       type: DataTypes.STRING,
-      primaryKey: false,
-      unique: true,
+      allowNull: false,
+      defaultValue: ''
     },
     CreateDate: {
       type: DataTypes.DATE,

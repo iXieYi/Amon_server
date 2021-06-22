@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 11:59:44
- * @LastEditTime: 2021-06-21 18:14:32
+ * @LastEditTime: 2021-06-22 10:58:40
  * @LastEditors: Please set LastEditors
  * @Description: 统一配置路由
  * @FilePath: /Amon_server/server/router.js
@@ -15,7 +15,7 @@ const imageManager = require('./server/image/resolver');
 const signUpManager = require('./server/base/signup');
 const projectManager = require('./server/base/project');
 
-//服务首页
+/** 服务首页 */
 router.get('/', function(req, res, next) {
     res.render('index', { title: '岩石识别服务' });
 });
@@ -34,6 +34,10 @@ router.use('/files',imageManager.getImageFromSource);                      // �
 
 /** 项目管理 */
 router.get('/getProjectList',projectManager.getProjectList);               // 获取项目列表
+router.post('/createProject',projectManager.createProject);                // 创建项目
+router.post('/deleteProject',projectManager.deleteProject);                // 删除项目
+router.post('/editProject',projectManager.editProject);                    // 编辑项目信息
+
 /** 未找到路由 */ 
 router.use((req, res) => {
     res.render('404');
