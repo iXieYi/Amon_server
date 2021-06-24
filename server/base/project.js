@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:50:02
- * @LastEditTime: 2021-06-22 10:54:38
+ * @LastEditTime: 2021-06-24 13:11:52
  * @LastEditors: Please set LastEditors
  * @Description: 项目管理接口
  * @FilePath: /Amon_server/server/base/project.js
@@ -163,7 +163,7 @@ class projectManager {
           state: false,
           msg: "项目名不可用",
         });
-      }else{
+      } else {
         project.ProjectName = ProjectName;
       }
     }

@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-06-18 14:28:46
+ * @LastEditTime: 2021-06-24 13:11:20
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /Amon_server/server/common/universal-result.js
+ */
 /**
  * @file 通用返回结果
  */
@@ -5,7 +13,7 @@ class UniResult {
 
     static getResult(code, data, msg) {
         return {
-            status: code,
+            code: code,
             data: data,
             msg: msg
         };
@@ -16,7 +24,7 @@ class UniResult {
     }
 
     static getSuccess(data, msg) {
-        return UniResult.getResult(0, data, msg);
+        return UniResult.getResult(200, data, msg);
     }
 
     static getNoDataSuccess(msg) {
