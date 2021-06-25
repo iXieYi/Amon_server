@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-16 11:37:30
- * @LastEditTime: 2021-06-17 13:30:08
+ * @LastEditTime: 2021-06-25 13:16:35
  * @LastEditors: Please set LastEditors
  * @Description: Token 处理函数
  * @FilePath: /Amon_server/server/common/token.js
@@ -25,7 +25,7 @@ const createToken = function (data, exp) {
   obj.data = data ? data : null;
   obj.type = 'jsonWebToken';
   obj.ctime = new Date().getTime();   //token的创建时间
-  exp = exp ? exp *(60 * 60 * 24) : 60 * 60 * 24;     //设定的过期时间,不设置就默认1天 
+  exp = exp ? exp * (60 * 60 * 24) : 60 * 60 * 24;     //设定的过期时间,不设置就默认1天 
   let token = jwt.sign(obj, secret, { expiresIn: exp });
   return token;
 };
@@ -37,7 +37,7 @@ const createToken = function (data, exp) {
  */
 const varifyToken = (token) => {
   var info = jwt.verify(token, secret, (error, res) => {
-    var data = {};          
+    var data = {};
     if (error) {
       data.code = '500';        // 自个定义失败码
       data.msg = 'token验证失败';
@@ -58,12 +58,12 @@ const varifyToken = (token) => {
  * @return {*}
  */
 const checkLoginStatus = async (req, res) => {
-  const {token = '',user_id = ''} = req.query;
+  const { token = '', user_id = '' } = req.query;
   // token 有效性校验
-  const info = varifyToken(token); 
+  const info = varifyToken(token);
   var resultInfo = {
-    tokenInfo:info,
-    isEffective:false
+    tokenInfo: info,
+    isEffective: false
   };
   // TODO 失败信息怎么获取前段
   if (info.code == '500') {
@@ -86,8 +86,8 @@ const checkLoginStatus = async (req, res) => {
  * @param {*} res
  * @return {*}
  */
-const resetToken = async (req,res) =>{
-  const {user_id} = req.query;
+const resetToken = async (req, res) => {
+  const { user_id } = req.query;
   const user = await models.user.findOne({
     where: {
       user_id: user_id
@@ -99,5 +99,5 @@ const resetToken = async (req,res) =>{
 
 
 
-module.exports = { createToken, varifyToken, checkLoginStatus,resetToken };
+module.exports = { createToken, varifyToken, checkLoginStatus, resetToken };
 

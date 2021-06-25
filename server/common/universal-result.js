@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-06-18 14:28:46
- * @LastEditTime: 2021-06-24 13:11:20
- * @LastEditors: your name
+ * @LastEditTime: 2021-06-25 10:30:13
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/server/common/universal-result.js
  */
