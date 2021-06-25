@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-16 11:37:30
- * @LastEditTime: 2021-06-25 13:16:35
+ * @LastEditTime: 2021-06-25 17:01:09
  * @LastEditors: Please set LastEditors
  * @Description: Token 处理函数
  * @FilePath: /Amon_server/server/common/token.js
@@ -58,7 +58,7 @@ const varifyToken = (token) => {
  * @return {*}
  */
 const checkLoginStatus = async (req, res) => {
-  const { token = '', user_id = '' } = req.query;
+  const { token = '', user_id = '' } = req.headers;
   // token 有效性校验
   const info = varifyToken(token);
   var resultInfo = {
@@ -87,7 +87,7 @@ const checkLoginStatus = async (req, res) => {
  * @return {*}
  */
 const resetToken = async (req, res) => {
-  const { user_id } = req.query;
+  const { user_id } = req.headers;
   const user = await models.user.findOne({
     where: {
       user_id: user_id

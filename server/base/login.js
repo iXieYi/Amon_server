@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-06-25 12:31:47
+ * @LastEditTime: 2021-06-25 17:53:39
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -96,7 +96,7 @@ class loginManager {
     resetToken(req, res);
     req.session.destroy(function () {
       response(res, {
-        state: true,
+        success: true,
         msg: "用户注销成功",
       });
     });
