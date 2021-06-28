@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-22 11:11:32
+ * @LastEditTime: 2021-06-28 16:01:42
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -26,13 +26,13 @@ const upload = multer({
   dest: config.ConfigManager.getInstance().getImageTempPath(),
   fileFilter: (req, file, callback) => {
     console.log(file);
-    const pToken = req.query.accessToken;
-    const configToken = config.ConfigManager.getInstance().getValue(config.keys.KEY_ACCESS_TOKEN);
+    // const pToken = req.body.accessToken;
+    // const configToken = config.ConfigManager.getInstance().getValue(config.keys.KEY_ACCESS_TOKEN);
     // Check token
-    if (pToken !== configToken) {
-      callback(new Error('token is invalid'), false);
-      return;
-    }
+    // if (pToken !== configToken) {
+    //   callback(new Error('token is invalid'), false);
+    //   return;
+    // }
     callback(null, true);
   },
   limits: {
@@ -44,14 +44,13 @@ const upload = multer({
 const uploadFiles = multer({
   dest: config.ConfigManager.getInstance().getImageTempPath(),
   fileFilter: (req, file, callback) => {
-    console.log(file);
-    const pToken = req.query.accessToken;
-    const configToken = config.ConfigManager.getInstance().getValue(config.keys.KEY_ACCESS_TOKEN);
+    // const pToken = req.body.accessToken;
+    // const configToken = config.ConfigManager.getInstance().getValue(config.keys.KEY_ACCESS_TOKEN);
     // Check token
-    if (pToken !== configToken) {
-      callback(new Error('token is invalid'), false);
-      return;
-    }
+    // if (pToken !== configToken) {
+    //   callback(new Error('token is invalid'), false);
+    //   return;
+    // }
     callback(null, true);
   },
   limits: {
@@ -88,9 +87,9 @@ const moveFiles = (res, currentPath, destPath, fileName) => {
 class uploadManager {
   // 单文件上传服务
   async uploadFile(req, res) {
-    const { file_id = '' } = req.query;
-    const target_dir = config.ConfigManager.getInstance().createImageToDestPath(file_id);
     upload(req, res, (err) => {
+      const { file_id = '' } = req.body;
+      const target_dir = config.ConfigManager.getInstance().createImageToDestPath(file_id);
       if (err) {
         LogUtil.error(err);
         return response(res, null, err);
@@ -100,7 +99,8 @@ class uploadManager {
         return response(res, UniResult.Errors.PARAM_ERROR);
       }
       let ext = path.parse(file.originalname).ext;
-      let fileName = `${file.filename}${ext.toLowerCase()}`;
+      const ext_p = ext.toLowerCase() == '.heic' ? '.png' : ext.toLowerCase() == '.mov' ? '.mp4' : ext.toLowerCase();
+      let fileName = `${file.filename}${ext_p}`;
       let imageFilePath = path.join(TARGET_DIR, target_dir, fileName);
       //获取相对文件名
       const relativeName = path.join(target_dir, fileName);
@@ -111,10 +111,10 @@ class uploadManager {
 
   // 多文件上传服务
   async uploadFiles(req, res) {
-    console.log(req.session);
-    const { file_id = '' } = req.query;
-    const target_dir = config.ConfigManager.getInstance().createImageToDestPath(file_id);
     uploadFiles(req, res, (err) => {
+      const { file_id = '' } = req.body;
+      const target_dir = config.ConfigManager.getInstance().createImageToDestPath(file_id);
+      console.log('target_dir', target_dir);
       if (err) {
         LogUtil.error(err);
         return response(res, null, err);
@@ -127,7 +127,9 @@ class uploadManager {
       var urls = [];
       files.forEach(file => {
         const ext = path.parse(file.originalname).ext;
-        let fileName = `${file.filename}${ext.toLowerCase()}`;
+        const ext_p = ext.toLowerCase() == '.heic' ? '.png' : ext.toLowerCase() == '.mov' ? '.mp4' : ext.toLowerCase();
+        console.log(ext_p);
+        let fileName = `${file.filename}${ext_p}`;
         let imageFilePath = path.join(TARGET_DIR, target_dir, fileName);
         const relativeName = path.join(target_dir, fileName);
         moveFiles(res, file.path, imageFilePath, relativeName);
