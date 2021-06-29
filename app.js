@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-01-21 15:47:01
- * @LastEditTime: 2021-06-18 14:54:53
+ * @LastEditTime: 2021-06-29 14:48:48
  * @LastEditors: Please set LastEditors
  * @Description: 入口
  * @FilePath: /Amon_server/app.js
@@ -12,7 +12,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
-
+const favicon = require('serve-favicon');
 const config = require('./server/config');
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
@@ -24,12 +24,11 @@ const myLogger = require('./server/common/logger');
 //配置统一的返回格式
 const response = require('./server/common/response');
 global.response = response.response;
-
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

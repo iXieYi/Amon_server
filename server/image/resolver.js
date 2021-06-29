@@ -1,7 +1,7 @@
 /*
  * @Author:凡琛
  * @Date: 2021-06-13 21:58:35
- * @LastEditTime: 2021-06-16 10:26:47
+ * @LastEditTime: 2021-06-29 14:49:51
  * @LastEditors: Please set LastEditors
  * @Description: 图像访问解析
  * @FilePath: /Amon_server/routes/resolver.js
@@ -12,23 +12,24 @@ const fs = require('fs');
 const staticServer = require('node-static');
 const config = require('./config');
 const LogUtil = require('./log');
-var express = require('express');
+const file = require('./file');
 const RESOURCE_ROOT = config.ConfigManager.getInstance().getValue(config.keys.KEY_IMAGE_DIR);
 // 文件服务
-const _fileServer = new staticServer.Server(RESOURCE_ROOT, {
-  cache: null,
-  gzip: true
-});
+// const _fileServer = new staticServer.Server(RESOURCE_ROOT, {
+//   cache: 3600,
+//   gzip: true
+// });
 // 获取文件路径
-const _getImagePath = (isAbsolutePath, needWebp, pathInfo) => {
+const _getImagePath = (isAbsolutePath, pathInfo) => {
   return path.join(
     isAbsolutePath ? RESOURCE_ROOT : '',
     pathInfo.dir,
-    pathInfo.name + pathInfo.ext + (needWebp ? '.webp' : '')
+    pathInfo.name + pathInfo.ext
   );
 };
 
 class imageManager {
+
   async getImageFromSource(req, res) {
     const url = URL.parse(req.url);
     const pathInfo = path.parse(url.pathname);
@@ -38,24 +39,23 @@ class imageManager {
       res.end();
       return;
     }
-    const fullWebpFilePath = _getImagePath(true, true, pathInfo);
-    const relativeWebpFilePath = _getImagePath(false, true, pathInfo);
-    const fullNormalFilePath = _getImagePath(true, false, pathInfo);
-    const relativeNormalFilePath = _getImagePath(false, false, pathInfo);
-
+    // 文件路径
+    const fullNormalFilePath = _getImagePath(true, pathInfo);
+    const relativeNormalFilePath = _getImagePath(false, pathInfo);
     const accepts = req.headers['accept'];
     LogUtil.info(`Target File Path: ${fullNormalFilePath}`);
-    // If HTTP header accepts contains 'image/webp' (like Chrome), return webp file.
-    if (accepts && accepts.indexOf('image/webp') !== -1 && fs.existsSync(fullWebpFilePath)) {
-      LogUtil.info(`URL: ${req.url} Accepts: ${accepts} send webp`);
-      _fileServer.serveFile(relativeWebpFilePath, 200, { 'Content-Type': 'image/webp' }, req, res);
-    } else if (fs.existsSync(fullNormalFilePath)) {  // If not (like Safari), return png/jpg file.
+    //文件存在
+    if (fs.existsSync(fullNormalFilePath)) {
       LogUtil.info(`URL: ${req.url} Accepts: ${accepts} send normal`);
-      _fileServer.serveFile(relativeNormalFilePath, 200, {}, req, res);
-    } else {  // file not existed.
-      LogUtil.error(`URL: ${req.url} Accepts: ${accepts} file not found, send nothing`);
+      file.readFileBySuffixName(fullNormalFilePath, fs, req, res);
+
+    } else { // 文件不存在
+      LogUtil.error(`URL: ${req.url} Accepts: ${accepts} 文件不存在`);
       res.statusCode = 404;
-      res.end();
+      response(res, {
+        success: false,
+        msg: "文件不存在",
+      });
     }
   }
 }

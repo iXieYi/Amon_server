@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-28 16:01:42
+ * @LastEditTime: 2021-06-28 17:12:05
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -128,7 +128,6 @@ class uploadManager {
       files.forEach(file => {
         const ext = path.parse(file.originalname).ext;
         const ext_p = ext.toLowerCase() == '.heic' ? '.png' : ext.toLowerCase() == '.mov' ? '.mp4' : ext.toLowerCase();
-        console.log(ext_p);
         let fileName = `${file.filename}${ext_p}`;
         let imageFilePath = path.join(TARGET_DIR, target_dir, fileName);
         const relativeName = path.join(target_dir, fileName);
