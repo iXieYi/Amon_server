@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-18 15:53:38
- * @LastEditTime: 2021-06-18 17:42:24
+ * @LastEditTime: 2021-07-01 16:36:39
  * @LastEditors: Please set LastEditors
  * @Description: 通用工具类
  * @FilePath: /Amon_server/server/common/utils.js
@@ -27,41 +27,40 @@ const currentDate = () => {
 /*  创建用户id */
 const createUseId = async () => {
     const prefix = currentDate();
-    var user_id = prefix;
+    var UserID = prefix;
     //查数据库已有的user_id
-    await models.user.findAll({
+    const usr = await models.User.findAll({
         where: {
-            user_id: {
+            UserID: {
                 [Op.like]: `${prefix}%`
             }
         }
     }).then(function (result) {
         if (result.length <= 0) {
-            user_id = prefix + '0001';
+            UserID = prefix + '0001';
         } else {
             // 遍历最大值 + 1 （ TODO 溢出问题? ）
             var max_id = 0;
             result.forEach(user => {
-                const id = toNumber(user.user_id);
+                const id = toNumber(user.UserID);
                 if (id > max_id) max_id = id;
                 console.log('user', typeof (max_id), max_id);
             });
-            user_id = max_id + 1;
+            UserID = max_id + 1;
         }
     }).catch(function (error) {
         logger.info("user_id创建error: " + error);
     });
-    logger.info("user_id: " + user_id + " 创建");
-    return user_id.toString();
+    logger.info("UserID: " + UserID + " 创建");
+    return UserID;
 }
 
 const randNum = (n) => {
-    var num = ''; 
-    for (var i = 0; i < n; i++) 
-    { 
-        num += Math.floor(Math.random() * 10); 
+    var num = '';
+    for (var i = 0; i < n; i++) {
+        num += Math.floor(Math.random() * 10);
     }
     return num;
 }
 
-module.exports = { randNum,currentDate, createUseId }
+module.exports = { randNum, currentDate, createUseId }

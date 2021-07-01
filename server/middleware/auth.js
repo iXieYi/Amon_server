@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 09:06:16
- * @LastEditTime: 2021-06-28 17:21:06
+ * @LastEditTime: 2021-07-01 17:37:38
  * @LastEditors: Please set LastEditors
  * @Description: 用户请求鉴权
  * @FilePath: /Amon_server/server/middleware/auth.js
@@ -11,9 +11,8 @@ const { checkLoginStatus } = require('../common/token');
 class authMiddleware {
   /**用户登录校验 */
   async loginRequired(req, res, next) {
-    const { token = '', user_id = '' } = req.headers;
-    // console.log(req.headers);
-    if (!token || !user_id) {
+    const { token = '', userid = '' } = req.headers;
+    if (!token || !userid) {
       return response(res, {
         success: false,
         msg: 'token & user_id不可为空',

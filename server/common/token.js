@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-16 11:37:30
- * @LastEditTime: 2021-06-25 17:01:09
+ * @LastEditTime: 2021-07-01 17:29:06
  * @LastEditors: Please set LastEditors
  * @Description: Token 处理函数
  * @FilePath: /Amon_server/server/common/token.js
@@ -58,7 +58,7 @@ const varifyToken = (token) => {
  * @return {*}
  */
 const checkLoginStatus = async (req, res) => {
-  const { token = '', user_id = '' } = req.headers;
+  const { token = '', userid = '' } = req.headers;
   // token 有效性校验
   const info = varifyToken(token);
   var resultInfo = {
@@ -70,13 +70,13 @@ const checkLoginStatus = async (req, res) => {
     return resultInfo;
   }
   // 查询数据库
-  const user = await models.user.findOne({
+  const user = await models.User.findOne({
     where: {
-      user_id: user_id
+      UserID: userid
     }
   });
   // token 一致性校验
-  const isEffective = user ? token == user.token : false;
+  const isEffective = user ? token == user.Token : false;
   resultInfo.isEffective = isEffective;
   return resultInfo;
 }
@@ -87,13 +87,13 @@ const checkLoginStatus = async (req, res) => {
  * @return {*}
  */
 const resetToken = async (req, res) => {
-  const { user_id } = req.headers;
-  const user = await models.user.findOne({
+  const { userid } = req.headers;
+  const user = await models.User.findOne({
     where: {
-      user_id: user_id
+      UserID: userid
     }
   });
-  user.token = null;
+  user.Token = null;
   await user.save();
 }
 

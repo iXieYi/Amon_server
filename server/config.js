@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:09:01
- * @LastEditTime: 2021-06-21 15:47:44
+ * @LastEditTime: 2021-06-30 22:15:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/config.js
@@ -11,11 +11,15 @@
 
 'use strict';
 const env_sql = {
-  development:'127.0.0.1',
-  production:'172.17.0.2'
+  // development: '10.218.66.200',
+  development: '172.16.1.150',
+  // development: '127.0.0.1',
+  production: '172.17.0.2'
 }
 const env_redis = {
-  development:'127.0.0.1',
+  // development: '10.218.66.200',
+  development: '172.16.1.150',
+  // development: '127.0.0.1',
   production: '172.17.0.3'
 }
 
@@ -33,7 +37,7 @@ module.exports = {
   sqldb: {
     db: 'mysql',
     host: env_sql[process.env.CURRENT_ENV],
-    database: 'express_admin',
+    database: 'RecRock',
     username: 'root',
     password: '123456',
     timezone: '+08:00' //for writing to database

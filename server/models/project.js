@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:06:37
- * @LastEditTime: 2021-06-22 10:07:42
+ * @LastEditTime: 2021-07-01 14:20:56
  * @LastEditors: Please set LastEditors
  * @Description: 项目信息
  * @FilePath: /Amon_server/server/models/project.js
@@ -10,7 +10,7 @@
 const moment = require('moment');
 
 module.exports = (sequelize, DataTypes) => {
-  let Project = sequelize.define('project', {
+  let Project = sequelize.define('Project', {
     ProjectID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -31,9 +31,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0
     },
-    Department: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    Investigated: {
+      type: DataTypes.STRING,
+      allowNull: true,
       defaultValue: ''
     },
     Stage: {
@@ -41,12 +41,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0
     },
-    Describe: {
+    ProjectDescribe: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: ''
     },
-    Memo: {
+    Memo3: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: ''

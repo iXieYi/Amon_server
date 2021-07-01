@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-06-25 17:53:39
+ * @LastEditTime: 2021-07-01 17:14:34
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -21,16 +21,16 @@ class loginManager {
     // console.log('req.cookies', req.cookies["connect.sid"]);
     // console.log('req.session.id', req.session.id);
     //登录接口校验
-    const { userName = '', password = '' } = req.body;
-    if (userName === '' || password === '') {
+    const { UserName = '', Password = '' } = req.body;
+    if (UserName === '' || Password === '') {
       return response(res, {
         success: false,
         msg: "用户名或密码不可为空",
       });
     }
-    const user = await models.user.findOne({
+    const user = await models.User.findOne({
       where: {
-        login_name: userName
+        UserName: UserName
       }
     });
     if (user === null) {
@@ -39,48 +39,48 @@ class loginManager {
         msg: "用户名或密码错误！",
       });
     }
-    if (user.is_enabled == 0) {
+    if (user.IsEnable == 0) {
       return response(res, {
         success: false,
         msg: "禁止登录，请联系管理员！",
       });
     }
-    if (crypto.createHash('md5').update(password).digest('hex') === user.login_password) {
+    if (crypto.createHash('md5').update(Password).digest('hex') === user.Password) {
       req.session.user = user;
-      const userPosition = await models.position.findAll({
-        where: {
-          id: {
-            [Op.in]: user.position_id.split(',')
-          }
-        },
-      });
-      let menuId = [];
-      if (userPosition.length > 0) {
-        userPosition.forEach(element => {
-          menuId = _.union(menuId, element.menu_id.split(','));
-        });
-      }
+      // const userPosition = await models.Position.findAll({
+      //   where: {
+      //     id: {
+      //       [Op.in]: user.PositionID.split(',')
+      //     }
+      //   },
+      // });
+      // let menuId = [];
+      // if (userPosition.length > 0) {
+      //   userPosition.forEach(element => {
+      //     menuId = _.union(menuId, element.MenuID.split(','));
+      //   });
+      // }
 
-      const userMenu = await models.menu.findAll({
-        where: {
-          id: {
-            [Op.in]: menuId
+      // const userMenu = await models.Menu.findAll({
+      //   where: {
+      //     id: {
+      //       [Op.in]: menuId
 
-          },
-          is_enabled: 1,
-        },
-      });
-      req.session.menu = userMenu;
+      //     },
+      //     IsEnabled: 1,
+      //   },
+      // });
+      // req.session.menu = userMenu;
 
-      logger.info("用户：" + userName + " 登录成功！");
+      logger.info("用户：" + UserName + " 登录成功！");
       // 生成token 存入数据库 (获取当前用户)
       const token = createToken({}, 1);
-      user.token = token;
+      user.Token = token;
       await user.save();
       return response(res, {
         success: true,
-        userName: user.login_name,
-        userId: user.user_id,
+        UserName,
+        userId: user.UserID,
         msg: "登录成功！",
         token
       });
@@ -93,6 +93,7 @@ class loginManager {
   }
   // 注销
   async logout(req, res, next) {
+    console.log('sssssss');
     resetToken(req, res);
     req.session.destroy(function () {
       response(res, {
