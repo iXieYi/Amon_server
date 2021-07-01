@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: 凡琛
  * @Date: 2021-06-15 17:46:51
- * @LastEditTime: 2021-06-21 16:30:25
+ * @LastEditTime: 2021-06-30 14:32:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/server/models/user.js
@@ -11,11 +11,6 @@ const moment = require('moment');
 
 module.exports = (sequelize, DataTypes) => {
     let User = sequelize.define('user', {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: false,
-            autoIncrement: true
-        },
         user_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -41,9 +36,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         /**职位id列表（1,2,3） */
         position_id: {
-                type: DataTypes.STRING,
-                allowNull: false,
-                defaultValue: 0
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 0
         },
         /**职位名称列表（开发,总经理） */
         position_name: {
@@ -87,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
                 return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
             }
         },
-        token:{
+        token: {
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue: null
