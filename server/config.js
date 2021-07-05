@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:09:01
- * @LastEditTime: 2021-06-30 22:15:47
+ * @LastEditTime: 2021-07-05 14:55:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/config.js
@@ -37,7 +37,7 @@ module.exports = {
   sqldb: {
     db: 'mysql',
     host: env_sql[process.env.CURRENT_ENV],
-    database: 'RecRock',
+    database: 'RockRec',
     username: 'root',
     password: '123456',
     timezone: '+08:00' //for writing to database
