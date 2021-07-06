@@ -1,82 +1,115 @@
-/*
- * @Author: 凡琛
- * @Date: 2021-07-05 17:44:07
- * @LastEditTime: 2021-07-05 18:01:34
- * @LastEditors: Please set LastEditors
- * @Description: 样本提交
- * @FilePath: /Amon_server/server/models/submit.js
- */
-'use strict';
-
-const moment = require('moment');
-module.exports = (sequelize, DataTypes) => {
-    let Submit = sequelize.define('Submit', {
-        /** 提交ID */
-        SubmitID: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            unique: true,
-            autoIncrement: true
-        },
-        /** 项目ID */
-        ProjectID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        /** 项目岩石类别ID */
-        ProjectRockID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        /** 岩石颜色 */
-        Color: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        Occurrence: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        Weathering: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
-        Integrity: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
-        Location: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        Longitude: {
-            type: DataTypes.FLOAT,
-            allowNull: true,
-        },
-        Latitude: {
-            type: DataTypes.FLOAT,
-            allowNull: true,
-        },
-        GeoDescfibe: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-        },
-        Sumitter: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
-        Memo: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-        },
-        SubmitTime: {
-            type: DataTypes.DATE,
-            get() {
-                return moment(this.getDataValue('SubmitTime')).format('YYYY-MM-DD HH:mm:ss');
-            }
-        }
-    }, {
-        freezeTableName: true,
-    });
-    return Submit;
-}
+const Sequelize = require('sequelize');
+module.exports = function (sequelize, DataTypes) {
+  return sequelize.define('Submit', {
+    SubmitID: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    },
+    ProjectID: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'Project',
+        key: 'ProjectID'
+      }
+    },
+    ProjectRockID: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'RocksOfProject',
+        key: 'ProjectRockID'
+      }
+    },
+    Color: {
+      type: DataTypes.STRING(60),
+      allowNull: true
+    },
+    Occurrence: {
+      type: DataTypes.STRING(60),
+      allowNull: true
+    },
+    Weathering: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
+    Integrity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 1
+    },
+    Location: {
+      type: DataTypes.STRING(60),
+      allowNull: true
+    },
+    Longitude: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      defaultValue: 119.28
+    },
+    Latitude: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      defaultValue: 26.08
+    },
+    GeoDescribe: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    Submitter: {
+      type: DataTypes.DECIMAL(20, 0),
+      allowNull: true,
+      references: {
+        model: 'User',
+        key: 'UserID'
+      }
+    },
+    Memo: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    SubmitTime: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    }
+  }, {
+    sequelize,
+    tableName: 'Submit',
+    timestamps: false,
+    indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "SubmitID" },
+        ]
+      },
+      {
+        name: "fk_Submit_Project_1",
+        using: "BTREE",
+        fields: [
+          { name: "ProjectID" },
+        ]
+      },
+      {
+        name: "fk_Submit_RocksOfProject_1",
+        using: "BTREE",
+        fields: [
+          { name: "ProjectRockID" },
+        ]
+      },
+      {
+        name: "fk_Submit_User_1",
+        using: "BTREE",
+        fields: [
+          { name: "Submitter" },
+        ]
+      },
+    ]
+  });
+};
