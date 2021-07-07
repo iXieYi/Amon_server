@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: 凡琛
  * @Date: 2021-06-11 23:04:25
- * @LastEditTime: 2021-07-07 11:03:48
+ * @LastEditTime: 2021-07-07 11:17:35
  * @LastEditors: Please set LastEditors
  * @Description: 图片服务器配置
  * @FilePath: /coderyuan-image-server/config.js

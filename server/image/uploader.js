@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-06-28 17:12:05
+ * @LastEditTime: 2021-07-07 11:49:44
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -66,6 +66,7 @@ const moveFile = (res, currentPath, destPath, fileName) => {
       response(res, null, err);
       return false;
     } else {
+      fileName = fileName.replace(/\\/g, "/");
       response(res, {
         success: true,
         msg: '上传成功',
