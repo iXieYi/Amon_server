@@ -6,7 +6,7 @@
       "log_date_format": "YYYY-MM-DD HH:mm:ss",
       "error_file": "logs/error.log",
       "out_file": "logs/out.log",
-      "pid_file": "pids/node-geo-api.pid",
+      "pid_file": "pids/node-api.pid",
       "min_uptime": "200s",
       "watch": true,
       "autorestart": true,
