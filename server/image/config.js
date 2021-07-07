@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-11 23:04:25
- * @LastEditTime: 2021-07-07 10:52:12
+ * @LastEditTime: 2021-07-07 11:03:48
  * @LastEditors: Please set LastEditors
  * @Description: 图片服务器配置
  * @FilePath: /coderyuan-image-server/config.js
@@ -42,6 +42,7 @@ const keys = {
 };
 const env = {
   development: `${IPv4['en0']}:3000/files/`,
+  development_W: `${IPv4['以太网']}:3000/files/`,
   production: `${IPv4['en0']}:3000/files/`
 }
 

@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:09:01
- * @LastEditTime: 2021-07-05 14:55:47
+ * @LastEditTime: 2021-07-07 11:03:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/config.js
@@ -13,12 +13,14 @@
 const env_sql = {
   // development: '10.218.66.200',
   development: '172.16.1.150',
+  development_W: '172.16.1.150',
   // development: '127.0.0.1',
   production: '172.17.0.2'
 }
 const env_redis = {
   // development: '10.218.66.200',
   development: '172.16.1.150',
+  development_W: '172.16.1.150',
   // development: '127.0.0.1',
   production: '172.17.0.3'
 }

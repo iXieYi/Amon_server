@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "cross-env CURRENT_ENV=production node ./bin/www",
-    "devstart": "cross-env CURRENT_ENV=development nodemon ./bin/www"
+    "devStart": "cross-env CURRENT_ENV=development nodemon ./bin/www",
+    "devStartWindow": "cross-env CURRENT_ENV=development_W nodemon ./bin/www"
   },
   "dependencies": {
     "compression": "^1.7.4",
