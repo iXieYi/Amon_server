@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 11:59:44
- * @LastEditTime: 2021-06-30 11:49:54
+ * @LastEditTime: 2021-07-07 16:40:45
  * @LastEditors: Please set LastEditors
  * @Description: 统一配置路由
  * @FilePath: /Amon_server/server/router.js
@@ -15,6 +15,7 @@ const imageManager = require('./server/image/resolver');
 const signUpManager = require('./server/base/signup');
 const projectManager = require('./server/base/project');
 const publishManager = require('./server/base/publish');
+const mineManager = require('./server/base/mine');
 
 /** 服务首页 */
 router.get('/', function (req, res, next) {
@@ -42,6 +43,8 @@ router.post('/editProject', auth.loginRequired, projectManager.editProject);    
 /** 发布接口 */
 router.post('/publish/publishSampleImage', auth.loginRequired, publishManager.publishSampleImage);      // 样本图像发布接口
 
+/** 个人信息接口 */
+router.post('/mine/getPersonalInfo', auth.loginRequired, mineManager.getPersonalInfo);           // 获取个人详细信息
 
 /** 未找到路由 */
 router.use((req, res) => {

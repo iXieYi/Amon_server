@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:50:02
- * @LastEditTime: 2021-07-01 17:44:51
+ * @LastEditTime: 2021-07-07 16:43:14
  * @LastEditors: Please set LastEditors
  * @Description: 项目管理接口
  * @FilePath: /Amon_server/server/base/project.js
@@ -39,8 +39,8 @@ class projectManager {
       Stage = 0,                    // 项目状态，强校验
       Investigated = '',
       Location = '',                // 地址信息
-      ProjectDescribe = '',                // 描述
-      Memo3 = '',                    // 备注信息
+      ProjectDescribe = '',         // 描述
+      Memo3 = '',                   // 备注信息
       StartDate,                    // 开始时间，强校验
       EndDate                       // 结束时间，强校验
     } = req.body;

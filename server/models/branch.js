@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 20:30:13
- * @LastEditTime: 2021-07-01 14:26:10
+ * @LastEditTime: 2021-07-07 17:20:52
  * @LastEditors: Please set LastEditors
  * @Description: 部门管理
  * @FilePath: /Amon_server/server/models/branch.js
@@ -62,6 +62,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         freezeTableName: true,
+        timestamps: false
     });
 
     return Branch;

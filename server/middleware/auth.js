@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 09:06:16
- * @LastEditTime: 2021-07-01 17:37:38
+ * @LastEditTime: 2021-07-07 16:41:36
  * @LastEditors: Please set LastEditors
  * @Description: 用户请求鉴权
  * @FilePath: /Amon_server/server/middleware/auth.js
@@ -15,7 +15,7 @@ class authMiddleware {
     if (!token || !userid) {
       return response(res, {
         success: false,
-        msg: 'token & user_id不可为空',
+        msg: 'token & userid不可为空',
       });
     }
     const result = await checkLoginStatus(req, res);
