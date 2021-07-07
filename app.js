@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-01-21 15:47:01
- * @LastEditTime: 2021-06-29 14:48:48
+ * @LastEditTime: 2021-07-07 15:06:55
  * @LastEditors: Please set LastEditors
  * @Description: 入口
  * @FilePath: /Amon_server/app.js
@@ -68,6 +68,17 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+// 异常处理
+process.on('uncaughtException', function (err) {
+  //打印出错误
+  console.log(err);
+  //打印出错误的调用栈方便调试
+  console.log(err.stack);
+});
+// 异常处理
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+})
 
 // app.listen(config.port,() => {
 //   myLogger.info('server listening on port：' + config.port);
