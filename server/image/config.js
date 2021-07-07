@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-11 23:04:25
- * @LastEditTime: 2021-06-21 15:48:12
+ * @LastEditTime: 2021-07-07 10:52:12
  * @LastEditors: Please set LastEditors
  * @Description: 图片服务器配置
  * @FilePath: /coderyuan-image-server/config.js
@@ -11,10 +11,18 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 
+const os = require('os');
+const ifaces = os.networkInterfaces();
+var IPv4 = {};
+for (var dev in ifaces) {
+  ifaces[dev].forEach(function (details) {
+    if (details.family == 'IPv4') {
+      IPv4[dev] = details.address;
+    }
+  });
+}
 
 let _instance;
-
-const name_id = '10100203' // 测试编码
 /**
  * Some const key defined for fetch configs.
  */
@@ -30,11 +38,11 @@ const keys = {
   KEY_MAX_IMAGE_SIZE: 'max_image_size',
   KEY_URL_PREFIX: 'image_server_url_prefix',
   KEY_BIND_LOCAL: 'bind_local_address',
-  KEY_MAX_COUNT:'max_file_count'
+  KEY_MAX_COUNT: 'max_file_count'
 };
 const env = {
-  development:'http://127.0.0.1:3000/files/',
-  production:'http://10.218.66.200:3000/files/'
+  development: `${IPv4['en0']}:3000/files/`,
+  production: `${IPv4['en0']}:3000/files/`
 }
 
 /**
@@ -102,7 +110,7 @@ class ConfigManager {
    * @param {string} file_id 类别id （例如：10100203）
    * @return {string } filePathRelative 回传相对地址
    */
-createImageToDestPath(file_id) {
+  createImageToDestPath(file_id) {
     const imageDir = this.getValue(keys.KEY_IMAGE_DIR);
     if (!imageDir || !fs.existsSync(imageDir)) {
       return null;
