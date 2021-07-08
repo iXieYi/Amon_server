@@ -53,7 +53,7 @@ class ConfigManager {
 
   constructor() {
     try {
-      this._allConfigs = yaml.safeLoad(fs.readFileSync('./server/image/config.yml'));//这里路径是相对启动文件app.js的路径
+      this._allConfigs = yaml.safeLoad(fs.readFileSync('./server/file/config.yml'));//这里路径是相对启动文件app.js的路径
     } catch (e) {
       console.log(e);
     }

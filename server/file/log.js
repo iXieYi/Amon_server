@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-06-13 21:05:21
  * @LastEditors: Please set LastEditors
  * @Description: 日志输出
- * @FilePath: /Amon_server/server/image/log.js
+ * @FilePath: /Amon_server/server/file/log.js
  */
 const moment = require('moment');
 const config = require('./config');

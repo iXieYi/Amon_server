@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-06-29 14:49:30
  * @LastEditors: Please set LastEditors
  * @Description: 文件处理
- * @FilePath: /Amon_server/server/image/file.js
+ * @FilePath: /Amon_server/server/file/file.js
  */
 
 exports.readFileBySuffixName = function (pathname, fs, req, res) {

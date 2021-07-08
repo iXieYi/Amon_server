@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-06-13 20:47:16
- * @LastEditTime: 2021-06-15 21:47:25
- * @LastEditors: your name
+ * @LastEditTime: 2021-07-08 08:52:00
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /Amon_server/server/image/webp-converter.js
+ * @FilePath: /Amon_server/server/file/webp-converter.js
  */
 const LogUtil = require('./log');
 const { exec } = require('child_process');
