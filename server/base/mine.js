@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-07-07 16:34:28
- * @LastEditTime: 2021-07-07 18:13:31
+ * @LastEditTime: 2021-07-08 11:24:57
  * @LastEditors: Please set LastEditors
  * @Description: 个人信息维护
  * @FilePath: /Amon_server/server/base/mine.js
@@ -28,41 +28,41 @@ class mineManager {
     const { dataValues = {} } = user;
     // 个人信息
     const baseInfo = {
-      "imageUrl": "http://www.hdec.com/cn/images/banner1.jpg",
+      "imageUrl": user.Avatar,
       "name": user.RealName,
       "departmant": Branch.Name
     }
     list.push(baseInfo);
     const item_1 = {
-      "icon": "http://www.hdec.com/cn/images/banner1.jpg",
+      "icon": "assets/images/icon/phone.png",
       "itemName": "手机",
       "detail": user.PhoneNumber,
       "extInfo": {}
     }
     list.push(item_1);
     const item_2 = {
-      "icon": "http://www.hdec.com/cn/images/banner1.jpg",
+      "icon": "assets/images/icon/email.png",
       "itemName": "邮箱",
       "detail": user.Email,
       "extInfo": {}
     }
     list.push(item_2);
     const item_3 = {
-      "icon": "http://www.hdec.com/cn/images/banner1.jpg",
+      "icon": "assets/images/icon/qrcode.png",
       "itemName": "二维码",
       "detail": "",
       "extInfo": {}
     }
     list.push(item_3);
     const item_4 = {
-      "icon": "http://www.hdec.com/cn/images/banner1.jpg",
+      "icon": "assets/images/icon/version.png",
       "itemName": "版本",
       "detail": versionText,
       "extInfo": {}
     }
     list.push(item_4);
     const item_5 = {
-      "icon": "http://www.hdec.com/cn/images/banner1.jpg",
+      "icon": "assets/images/icon/password.png",
       "itemName": "修改密码",
       "detail": "",
       "extInfo": {}

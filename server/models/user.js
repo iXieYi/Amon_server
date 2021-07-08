@@ -72,6 +72,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true,
       comment: "登录令牌"
+    },
+    Avatar: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     }
   }, {
     sequelize,
