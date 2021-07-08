@@ -1,12 +1,13 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-30 09:52:56
- * @LastEditTime: 2021-07-06 17:34:11
+ * @LastEditTime: 2021-07-08 14:17:52
  * @LastEditors: Please set LastEditors
  * @Description: 样本图像发布接口
  * @FilePath: /Amon_server/server/base/publish.js
  */
 const models = require('../models/index');
+const logger = require('../common/logger');
 Op = models.Sequelize.Op;
 
 class publishManager {
@@ -67,7 +68,7 @@ const createMediaClassify = async (req, res, MediaID, SubmitID) => {
     IsImage: true,
   }).then(function (result) {
   }).catch(function (error) {
-    return response(res, { success: false, msg: "校核记录创建失败", err: error });
+    logger.error('校核记录创建失败', error);
   });
 };
 // 添加媒体记录
@@ -97,7 +98,7 @@ const addMediaData = async (req, res, SubmitID) => {
       MediaID = result.MediaID;
       createMediaClassify(req, res, MediaID, SubmitID);
     }).catch(function (error) {
-      return response(res, { success: false, msg: "创建video资源失败", err: error });
+      logger.error('创建video资源失败', error);
     });
   }
   // 创建image媒体记录
@@ -116,7 +117,7 @@ const addMediaData = async (req, res, SubmitID) => {
         MediaID = result.MediaID;
         createMediaClassify(req, res, MediaID, SubmitID);
       }).catch(function (error) {
-        return response(res, { success: false, msg: "创建image资源失败", err: error });
+        logger.error('创建image资源失败', error);
       });
     }
   }

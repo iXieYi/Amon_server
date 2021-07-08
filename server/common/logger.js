@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: 凡琛
  * @Date: 2021-06-15 14:47:25
- * @LastEditTime: 2021-06-18 12:18:31
+ * @LastEditTime: 2021-07-08 14:15:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Amon_server/server/common/logger.js
@@ -22,7 +22,7 @@ log4js.configure({
             }
         },
         errorLogs: {
-            type: 'file',   
+            type: 'file',
             filename: 'logs/error/file.log',
             pattern: "yyyy-MM-dd",
             alwaysIncludePattern: true,
@@ -40,7 +40,7 @@ log4js.configure({
     },
     categories: {
         default: {
-            appenders: ['infoLogs', 'errorLogs', 'justErrors','display'],
+            appenders: ['infoLogs', 'errorLogs', 'justErrors', 'display'],
             level: 'DEBUG'
         }
     },

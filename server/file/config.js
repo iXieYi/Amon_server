@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-11 23:04:25
- * @LastEditTime: 2021-07-07 11:17:35
+ * @LastEditTime: 2021-07-08 14:24:38
  * @LastEditors: Please set LastEditors
  * @Description: 图片服务器配置
  * @FilePath: /coderyuan-image-server/config.js
@@ -41,9 +41,9 @@ const keys = {
   KEY_MAX_COUNT: 'max_file_count'
 };
 const env = {
-  development: `${IPv4['en0']}:3000/files/`,
-  development_W: `${IPv4['以太网']}:3000/files/`,
-  production: `${IPv4['en0']}:3000/files/`
+  development: `http://${IPv4['en0']}:3000/files/`,
+  development_W: `http://${IPv4['以太网']}:3000/files/`,
+  production: `http://${IPv4['en0']}:3000/files/`
 }
 
 /**
