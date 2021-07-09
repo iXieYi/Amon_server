@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-07-01 17:14:34
+ * @LastEditTime: 2021-07-09 15:04:09
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -74,7 +74,7 @@ class loginManager {
 
       logger.info("用户：" + UserName + " 登录成功！");
       // 生成token 存入数据库 (获取当前用户)
-      const token = createToken({}, 1);
+      const token = createToken({}, 30);
       user.Token = token;
       await user.save();
       return response(res, {
