@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-13 20:23:30
- * @LastEditTime: 2021-07-07 11:49:44
+ * @LastEditTime: 2021-07-09 17:57:33
  * @LastEditors: Please set LastEditors
  * @Description: 图片上传服务
  * @FilePath: /Amon_server/routes/uploader.js
@@ -89,7 +89,7 @@ class uploadManager {
   // 单文件上传服务
   async uploadFile(req, res) {
     upload(req, res, (err) => {
-      const { file_id = '',type = '' } = req.body;
+      const { file_id = '', type = '' } = req.body;
       var target_dir = config.ConfigManager.getInstance().createImageToDestPath(file_id);
       if (err) {
         LogUtil.error(err);
@@ -113,16 +113,8 @@ class uploadManager {
             break;
         }
       } else if (type == 'video') {
-        switch (ext.toLowerCase()) {
-          case '.mov':
-          case '.mp4':
-            ext_p = ext.toLowerCase();
-            break;
-          default:
-            ext_p = ".mp4";
-            break;
-        }
-        target_dir = path.join(target_dir,'video');
+        ext_p = ".mp4";
+        target_dir = path.join(target_dir, 'video');
       }
       let fileName = `${file.filename}${ext_p}`;
       let imageFilePath = path.join(TARGET_DIR, target_dir, fileName);
@@ -164,16 +156,8 @@ class uploadManager {
               break;
           }
         } else if (type == 'video') {
-          switch (ext.toLowerCase()) {
-            case '.mov':
-            case '.mp4':
-              ext_p = ext.toLowerCase();
-              break;
-            default:
-              ext_p = ".mp4";
-              break;
-          }
-          target_dir = path.join(target_dir,'video');
+          ext_p = ".mp4";
+          target_dir = path.join(target_dir, 'video');
         }
         let fileName = `${file.filename}${ext_p}`;
         let imageFilePath = path.join(TARGET_DIR, target_dir, fileName);
