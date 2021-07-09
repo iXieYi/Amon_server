@@ -5,6 +5,7 @@
   "scripts": {
     "start": "cross-env CURRENT_ENV=production pm2 start processes.json",
     "devStart": "cross-env CURRENT_ENV=development nodemon ./bin/www",
+    "devStartW": "cross-env CURRENT_ENV=development_W nodemon ./bin/www",
     "pm2":"cross-env CURRENT_ENV=development_W pm2 start processes.json"
   },
   "dependencies": {

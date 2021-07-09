@@ -89,8 +89,8 @@ class uploadManager {
   // 单文件上传服务
   async uploadFile(req, res) {
     upload(req, res, (err) => {
-      const { file_id = '' } = req.body;
-      const target_dir = config.ConfigManager.getInstance().createImageToDestPath(file_id);
+      const { file_id = '',type = '' } = req.body;
+      var target_dir = config.ConfigManager.getInstance().createImageToDestPath(file_id);
       if (err) {
         LogUtil.error(err);
         return response(res, null, err);
@@ -100,7 +100,30 @@ class uploadManager {
         return response(res, UniResult.Errors.PARAM_ERROR);
       }
       let ext = path.parse(file.originalname).ext;
-      const ext_p = ext.toLowerCase() == '.heic' ? '.png' : ext.toLowerCase() == '.mov' ? '.mp4' : ext.toLowerCase();
+      var ext_p = ext.toLowerCase();
+      if (type == 'image') {
+        switch (ext.toLowerCase()) {
+          case ".jpg":
+          case ".gif":
+          case ".png":
+            ext_p = ext.toLowerCase();
+            break;
+          default:
+            ext_p = ".png";
+            break;
+        }
+      } else if (type == 'video') {
+        switch (ext.toLowerCase()) {
+          case '.mov':
+          case '.mp4':
+            ext_p = ext.toLowerCase();
+            break;
+          default:
+            ext_p = ".mp4";
+            break;
+        }
+        target_dir = path.join(target_dir,'video');
+      }
       let fileName = `${file.filename}${ext_p}`;
       let imageFilePath = path.join(TARGET_DIR, target_dir, fileName);
       //获取相对文件名
@@ -113,7 +136,7 @@ class uploadManager {
   // 多文件上传服务
   async uploadFiles(req, res) {
     uploadFiles(req, res, (err) => {
-      const { file_id = '' } = req.body;
+      const { file_id = '', type = '' } = req.body;
       const target_dir = config.ConfigManager.getInstance().createImageToDestPath(file_id);
       console.log('target_dir', target_dir);
       if (err) {
@@ -128,7 +151,30 @@ class uploadManager {
       var urls = [];
       files.forEach(file => {
         const ext = path.parse(file.originalname).ext;
-        const ext_p = ext.toLowerCase() == '.heic' ? '.png' : ext.toLowerCase() == '.mov' ? '.mp4' : ext.toLowerCase();
+        var ext_p = ext.toLowerCase();
+        if (type == 'image') {
+          switch (ext.toLowerCase()) {
+            case ".jpg":
+            case ".gif":
+            case ".png":
+              ext_p = ext.toLowerCase();
+              break;
+            default:
+              ext_p = ".png";
+              break;
+          }
+        } else if (type == 'video') {
+          switch (ext.toLowerCase()) {
+            case '.mov':
+            case '.mp4':
+              ext_p = ext.toLowerCase();
+              break;
+            default:
+              ext_p = ".mp4";
+              break;
+          }
+          target_dir = path.join(target_dir,'video');
+        }
         let fileName = `${file.filename}${ext_p}`;
         let imageFilePath = path.join(TARGET_DIR, target_dir, fileName);
         const relativeName = path.join(target_dir, fileName);

@@ -121,9 +121,9 @@ class ConfigManager {
       dir_level_2 = file_id.substring(1, 3),
       dir_level_3 = file_id.substring(3, 6),
       dir_level_4 = file_id.substring(6);
-
+      const video = 'video';
     // 校验 & 创建
-    const filePath = path.join(imageDir, dir_level_1, dir_level_2, dir_level_3, dir_level_4);
+    const filePath = path.join(imageDir, dir_level_1, dir_level_2, dir_level_3, dir_level_4,video);
     const filePathRelative = path.join(dir_level_1, dir_level_2, dir_level_3, dir_level_4);
     mkdirp.sync(filePath, function (err) {
       if (err) console.error(err)
