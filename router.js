@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 11:59:44
- * @LastEditTime: 2021-07-08 08:51:17
+ * @LastEditTime: 2021-07-12 16:32:14
  * @LastEditors: Please set LastEditors
  * @Description: 统一配置路由
  * @FilePath: /Amon_server/server/router.js
@@ -16,6 +16,7 @@ const signUpManager = require('./server/base/signup');
 const projectManager = require('./server/base/project');
 const publishManager = require('./server/base/publish');
 const mineManager = require('./server/base/mine');
+const rockClassManager = require('./server/base/rockClass');
 
 /** 服务首页 */
 router.get('/', function (req, res, next) {
@@ -45,6 +46,9 @@ router.post('/publish/publishSampleImage', auth.loginRequired, publishManager.pu
 
 /** 个人信息接口 */
 router.post('/mine/getPersonalInfo', auth.loginRequired, mineManager.getPersonalInfo);           // 获取个人详细信息
+
+/** 岩石类别获取 */
+router.get('/getRockClassToJson', auth.loginRequired, rockClassManager.getRockClassToJson); // 岩石类别获取
 
 /** 未找到路由 */
 router.use((req, res) => {
