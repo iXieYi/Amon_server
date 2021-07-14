@@ -7,6 +7,19 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
+    Submitter: {
+      type: DataTypes.DECIMAL(20, 0),
+      allowNull: true,
+      references: {
+        model: 'User',
+        key: 'UserID'
+      }
+    },
+    SubmitTime: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
     ProjectID: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -23,6 +36,43 @@ module.exports = function (sequelize, DataTypes) {
         key: 'ProjectRockID'
       }
     },
+    Location: {
+      type: DataTypes.STRING(60),
+      allowNull: true
+    },
+    Longitude: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
+      defaultValue: 119.28
+    },
+    Latitude: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
+      defaultValue: 26.08
+    },
+    LongitudeMarker: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
+      comment: "地图选点经度"
+    },
+    LatitudeMarker: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
+      comment: "地图选段纬度"
+    },
+    GeoDescribe: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    Memo: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    Integrity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 1
+    },
     Color: {
       type: DataTypes.STRING(60),
       allowNull: true
@@ -35,46 +85,6 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0
-    },
-    Integrity: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 1
-    },
-    Location: {
-      type: DataTypes.STRING(60),
-      allowNull: true
-    },
-    Longitude: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-      defaultValue: 119.28
-    },
-    Latitude: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-      defaultValue: 26.08
-    },
-    GeoDescribe: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    Submitter: {
-      type: DataTypes.DECIMAL(20, 0),
-      allowNull: true,
-      references: {
-        model: 'User',
-        key: 'UserID'
-      }
-    },
-    Memo: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    SubmitTime: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
