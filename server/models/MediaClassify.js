@@ -29,14 +29,12 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: 10100100
     },
     Longitude: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-      defaultValue: 119.28
+      type: DataTypes.DOUBLE,
+      allowNull: true
     },
     Latitude: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-      defaultValue: 26.08
+      type: DataTypes.DOUBLE,
+      allowNull: true
     },
     Submitter: {
       type: DataTypes.DECIMAL(20, 0),
