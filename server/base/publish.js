@@ -20,6 +20,8 @@ class publishManager {
       Location = '',
       Longitude = '',
       Latitude = '',
+      LongitudeMarker = '',
+      LatitudeMarker = '',
       Submitter = '',
       GeoDescribe = '',
       Memo = ''
@@ -31,6 +33,8 @@ class publishManager {
       Location,
       Longitude,
       Latitude,
+      LongitudeMarker,
+      LatitudeMarker,
       Submitter,
       GeoDescribe,
       Memo,
@@ -48,10 +52,9 @@ class publishManager {
 const createMediaClassify = async (req, res, MediaID, SubmitID) => {
   const {
     InitialType = '',
-    Longitude = '',
-    Latitude = '',
+    LongitudeMarker = '',
+    LatitudeMarker = '',
     Submitter = '',
-    GeoDescribe = '',
   } = req.body;
   // 创建校核记录
   await models.MediaClassify.create({
@@ -59,9 +62,8 @@ const createMediaClassify = async (req, res, MediaID, SubmitID) => {
     SubmitID,
     Submitter,
     InitialType,
-    Longitude,
-    Latitude,
-    GeoDescribe,
+    Longitude:LongitudeMarker,
+    Latitude:LatitudeMarker,
     CurrentStage: 1,
     FinnalType: 1,
     Adopted: true,
@@ -80,7 +82,6 @@ const addMediaData = async (req, res, SubmitID) => {
     Submitter = '',
     videoUrl = '',
     imageUrls = [],
-    GeoDescribe = '',
     Memo = ''
   } = req.body;
 
@@ -90,7 +91,6 @@ const addMediaData = async (req, res, SubmitID) => {
       ProjectID,
       RockCode: InitialType,
       MediaType: 1,
-      GeoDescribe,
       Providor: Submitter,
       Memo2: Memo,
       FileURI: videoUrl
@@ -109,7 +109,6 @@ const addMediaData = async (req, res, SubmitID) => {
         ProjectID,
         RockCode: InitialType,
         MediaType: 1,
-        GeoDescribe,
         Providor: Submitter,
         Memo2: Memo,
         FileURI: imageUrl
