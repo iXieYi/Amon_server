@@ -118,9 +118,9 @@ class ConfigManager {
     }
     // 截取文件夹路径 目前支持4级路径
     const dir_level_1 = file_id.substring(0, 1),
-      dir_level_2 = file_id.substring(1, 3),
-      dir_level_3 = file_id.substring(3, 6),
-      dir_level_4 = file_id.substring(6);
+      dir_level_2 = file_id.substring(1, 2),
+      dir_level_3 = file_id.substring(2, 4),
+      dir_level_4 = file_id.substring(4);
       const video = 'video';
     // 校验 & 创建
     const filePath = path.join(imageDir, dir_level_1, dir_level_2, dir_level_3, dir_level_4,video);
