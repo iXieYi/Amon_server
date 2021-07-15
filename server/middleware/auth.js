@@ -24,6 +24,7 @@ class authMiddleware {
     if (!result.isEffective) {
       return response(res, {
         success: false,
+        code:6000,
         tokenInfo,
         msg: '用户登录失效',
       });

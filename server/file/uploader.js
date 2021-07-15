@@ -164,7 +164,7 @@ class uploadManager {
         const relativeName = path.join(target_dir, fileName);
         moveFiles(res, file.path, imageFilePath, relativeName);
         // TODO 文件转存失败兜底？
-        const url = URL_RREFIX + relativeName;
+        const url = (URL_RREFIX + relativeName).replace(/\\/g, "/");
         urls.push(url);
       });
       response(res, {
