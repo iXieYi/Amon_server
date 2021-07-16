@@ -24,7 +24,11 @@ class publishManager {
       LatitudeMarker = '',
       Submitter = '',
       GeoDescribe = '',
-      Memo = ''
+      Memo = '',
+      Integrity = 2,
+      Color ='',
+      Occurrence = '',
+      Weathering = 3
     } = req.body;
     // 创建提交记录
     await models.Submit.create({
@@ -38,6 +42,10 @@ class publishManager {
       Submitter,
       GeoDescribe,
       Memo,
+      Integrity,
+      Color,
+      Occurrence,
+      Weathering
     }).then(function (result) {
       addMediaData(req, res, result.SubmitID);
       return response(res, { success: true, msg: "提交成功" });
