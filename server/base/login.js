@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 14:15:03
- * @LastEditTime: 2021-07-09 15:04:09
+ * @LastEditTime: 2021-07-16 17:09:54
  * @LastEditors: Please set LastEditors
  * @Description: 用户登录接口
  * @FilePath: /Amon_server/server/base/login.js
@@ -93,7 +93,6 @@ class loginManager {
   }
   // 注销
   async logout(req, res, next) {
-    console.log('sssssss');
     resetToken(req, res);
     req.session.destroy(function () {
       response(res, {

@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 11:59:44
- * @LastEditTime: 2021-07-12 16:32:14
+ * @LastEditTime: 2021-07-16 17:29:08
  * @LastEditors: Please set LastEditors
  * @Description: 统一配置路由
  * @FilePath: /Amon_server/server/router.js
@@ -17,11 +17,15 @@ const projectManager = require('./server/base/project');
 const publishManager = require('./server/base/publish');
 const mineManager = require('./server/base/mine');
 const rockClassManager = require('./server/base/rockClass');
+const commonManager = require('./server/base/common');
 
 /** 服务首页 */
 router.get('/', function (req, res, next) {
     res.render('index', { title: '岩石识别服务' });
 });
+
+/** 一般接口 */
+router.get('/common/homeList', auth.loginRequired, commonManager.homeList);  // 首页数据接口
 
 /** 用户管理 */
 router.post('/login', loginManager.login);                                   // 登录
