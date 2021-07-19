@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-30 09:52:56
- * @LastEditTime: 2021-07-08 14:17:52
+ * @LastEditTime: 2021-07-19 14:58:40
  * @LastEditors: Please set LastEditors
  * @Description: 样本图像发布接口
  * @FilePath: /Amon_server/server/base/publish.js
@@ -26,7 +26,7 @@ class publishManager {
       GeoDescribe = '',
       Memo = '',
       Integrity = 2,
-      Color ='',
+      Color = '',
       Occurrence = '',
       Weathering = 3
     } = req.body;
@@ -57,7 +57,7 @@ class publishManager {
 }
 
 // 添加校审记录
-const createMediaClassify = async (req, res, MediaID, SubmitID) => {
+const createMediaClassify = async (req, res, FileURI, SubmitID) => {
   const {
     InitialType = '',
     LongitudeMarker = '',
@@ -65,13 +65,13 @@ const createMediaClassify = async (req, res, MediaID, SubmitID) => {
     Submitter = '',
   } = req.body;
   // 创建校核记录
-  await models.MediaClassify.create({
-    MediaID,
+  models.MediaClassify.create({
+    FileURI,
     SubmitID,
     Submitter,
     InitialType,
-    Longitude:LongitudeMarker,
-    Latitude:LatitudeMarker,
+    Longitude: LongitudeMarker,
+    Latitude: LatitudeMarker,
     CurrentStage: 1,
     FinnalType: 1,
     Adopted: true,
@@ -83,49 +83,20 @@ const createMediaClassify = async (req, res, MediaID, SubmitID) => {
 };
 // 添加媒体记录
 const addMediaData = async (req, res, SubmitID) => {
-  var MediaID;
   const {
-    ProjectID = '',
-    InitialType = '',
-    Submitter = '',
     videoUrl = '',
     imageUrls = [],
-    Memo = ''
   } = req.body;
 
   // 创建video媒体记录
   if (videoUrl != '') {
-    await models.Media.create({
-      ProjectID,
-      RockCode: InitialType,
-      MediaType: 1,
-      Providor: Submitter,
-      Memo2: Memo,
-      FileURI: videoUrl
-    }).then(function (result) {
-      MediaID = result.MediaID;
-      createMediaClassify(req, res, MediaID, SubmitID);
-    }).catch(function (error) {
-      logger.error('创建video资源失败', error);
-    });
+    createMediaClassify(req, res, videoUrl, SubmitID);
   }
   // 创建image媒体记录
   if (imageUrls && imageUrls.length > 0) {
     for (let index = 0; index < imageUrls.length; index++) {
       const imageUrl = imageUrls[index];
-      await models.Media.create({
-        ProjectID,
-        RockCode: InitialType,
-        MediaType: 1,
-        Providor: Submitter,
-        Memo2: Memo,
-        FileURI: imageUrl
-      }).then(function (result) {
-        MediaID = result.MediaID;
-        createMediaClassify(req, res, MediaID, SubmitID);
-      }).catch(function (error) {
-        logger.error('创建image资源失败', error);
-      });
+      createMediaClassify(req, res, imageUrl, SubmitID);
     }
   }
 };

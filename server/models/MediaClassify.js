@@ -7,13 +7,9 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       primaryKey: true
     },
-    MediaID: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Media',
-        key: 'MediaID'
-      }
+    FileURI: {
+      type: DataTypes.STRING(512),
+      allowNull: true
     },
     SubmitID: {
       type: DataTypes.INTEGER,
@@ -34,6 +30,24 @@ module.exports = function (sequelize, DataTypes) {
     },
     Latitude: {
       type: DataTypes.DOUBLE,
+      allowNull: true
+    },
+    Weathering: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 3
+    },
+    Integrity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 2
+    },
+    Occurrence: {
+      type: DataTypes.STRING(60),
+      allowNull: true
+    },
+    Color: {
+      type: DataTypes.STRING(60),
       allowNull: true
     },
     Submitter: {
@@ -141,6 +155,11 @@ module.exports = function (sequelize, DataTypes) {
     ClassifyMemo: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    RecommendLevel: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
     }
   }, {
     sequelize,
@@ -160,13 +179,6 @@ module.exports = function (sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "SubmitID" },
-        ]
-      },
-      {
-        name: "fk_MediaClassify_Media_1",
-        using: "BTREE",
-        fields: [
-          { name: "MediaID" },
         ]
       },
     ]

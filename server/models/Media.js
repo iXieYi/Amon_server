@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Media', {
     MediaID: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       primaryKey: true
     },
     ProjectID: {
@@ -32,22 +32,10 @@ module.exports = function (sequelize, DataTypes) {
         key: 'RockCode'
       }
     },
-    Number: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
     MediaType: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 1
-    },
-    GeoDescribe: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    Date: {
-      type: DataTypes.DATE,
-      allowNull: true
     },
     FileURI: {
       type: DataTypes.TEXT,
@@ -60,7 +48,7 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     Providor: {
-      type: DataTypes.DECIMAL(20, 0),
+      type: DataTypes.DECIMAL(20,0),
       allowNull: true
     },
     Memo2: {
