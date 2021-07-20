@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-07-07 16:34:28
- * @LastEditTime: 2021-07-08 11:24:57
+ * @LastEditTime: 2021-07-20 09:09:46
  * @LastEditors: Please set LastEditors
  * @Description: 个人信息维护
  * @FilePath: /Amon_server/server/base/mine.js
@@ -10,7 +10,8 @@ const models = require('../models/index');
 class mineManager {
   // 获取个人信息
   async getPersonalInfo(req, res) {
-    const { userid = '', versionText = 'v0.0.1' } = req.headers;
+    const { userid = '' } = req.headers;
+    const { version = 'v0.0.1' } = req.body;
     var mineData = {};
     var list = [];
     const user = await models.User.findOne({
@@ -24,7 +25,7 @@ class mineManager {
         BranchID: user.BranchID
       }
     });
-    console.log('versionText', versionText);
+    console.log('version', version);
     const { dataValues = {} } = user;
     // 个人信息
     const baseInfo = {
@@ -57,7 +58,7 @@ class mineManager {
     const item_4 = {
       "icon": "assets/images/icon/version.png",
       "itemName": "版本",
-      "detail": versionText,
+      "detail": version,
       "extInfo": {}
     }
     list.push(item_4);
