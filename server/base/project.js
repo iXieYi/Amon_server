@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:50:02
- * @LastEditTime: 2021-07-07 16:43:14
+ * @LastEditTime: 2021-07-20 16:15:18
  * @LastEditors: Please set LastEditors
  * @Description: 项目管理接口
  * @FilePath: /Amon_server/server/base/project.js
@@ -37,7 +37,7 @@ class projectManager {
       ProjectName = '',             // 项目名称，强校验
       ProjectType = 0,              // 项目类别，强校验
       Stage = 0,                    // 项目状态，强校验
-      Investigated = '',
+      Investigator = '',
       Location = '',                // 地址信息
       ProjectDescribe = '',         // 描述
       Memo3 = '',                   // 备注信息
@@ -63,7 +63,7 @@ class projectManager {
       ProjectName,
       ProjectType,
       Stage,
-      Investigated,
+      Investigator,
       Location,
       ProjectDescribe,
       Memo3,
@@ -74,9 +74,9 @@ class projectManager {
       response(res, {
         success: true,
         msg: "项目创建成功",
-      }).catch(function (error) {
-        logger.info("项目创建失败: " + error);
-      });
+      })
+    }).catch(function (error) {
+      logger.info("项目创建失败: " + error);
     });
   }
 
@@ -123,7 +123,7 @@ class projectManager {
       ProjectName = '',             // 项目名称，强校验
       ProjectType = 0,              // 项目类别，强校验
       Stage = 0,                    // 项目状态，强校验
-      Investigated = '',
+      Investigator = '',
       Location = '',                // 地址信息
       ProjectDescribe = '',                // 描述
       Memo3 = '',                    // 备注信息
@@ -165,7 +165,7 @@ class projectManager {
     }
     if (!ProjectType) project.ProjectType = ProjectType;
     if (!Stage) project.Stage = Stage;
-    if (Investigated !== '') project.Investigated = Investigated;
+    if (Investigator !== '') project.Investigator = Investigator;
     if (Location !== '') project.Location = Location;
     if (ProjectDescribe !== '') project.ProjectDescribe = ProjectDescribe;
     if (Memo3 !== '') project.Memo3 = Memo3;
