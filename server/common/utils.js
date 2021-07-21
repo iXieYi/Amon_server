@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-18 15:53:38
- * @LastEditTime: 2021-07-12 20:54:09
+ * @LastEditTime: 2021-07-21 09:02:20
  * @LastEditors: Please set LastEditors
  * @Description: 通用工具类
  * @FilePath: /Amon_server/server/common/utils.js
@@ -146,4 +146,18 @@ const rockFormatData = (list) => {
 
 }
 
-module.exports = { randNum, currentDate, createUseId, rockFormatData }
+// 追加id
+const addItemToList = (id, listStr) => {
+  var result;
+  let list = [];
+  if (listStr != null && listStr != '') list = listStr.split(',');
+  if ((id != '' && id != null) && (listStr == null || list.indexOf(id) == -1)) {
+    list.push(id);
+    result = list.join(',');
+    return result;
+  } else {
+    return listStr;
+  }
+}
+
+module.exports = { randNum, currentDate, createUseId, rockFormatData, addItemToList }

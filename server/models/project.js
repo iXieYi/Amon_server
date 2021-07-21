@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('Project', {
     ProjectID: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true
     },
     ProjectName: {
@@ -48,6 +48,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    Creator: {
+      type: DataTypes.DECIMAL(20, 0),
+      allowNull: true
     }
   }, {
     sequelize,

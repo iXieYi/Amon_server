@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:50:02
- * @LastEditTime: 2021-07-20 16:15:18
+ * @LastEditTime: 2021-07-21 09:07:59
  * @LastEditors: Please set LastEditors
  * @Description: 项目管理接口
  * @FilePath: /Amon_server/server/base/project.js
@@ -11,6 +11,7 @@ const logger = require('../common/logger');
 const models = require('../models/index');
 const moment = require('moment');
 const { isNull } = require('lodash');
+const utils = require('../common/utils');
 Op = models.Sequelize.Op;
 
 class projectManager {
@@ -44,6 +45,8 @@ class projectManager {
       StartDate,                    // 开始时间，强校验
       EndDate                       // 结束时间，强校验
     } = req.body;
+    const { userid = '' } = req.headers; //获取用户id
+
     // 校验项目是否已经存在
     let project = await models.Project.findAll({
       where: {
@@ -69,12 +72,21 @@ class projectManager {
       Memo3,
       CreateDate,
       StartDate,
-      EndDate
-    }).then(function (result) {
+      EndDate,
+      Creator: userid,
+    }).then(async function (result) {
       response(res, {
         success: true,
         msg: "项目创建成功",
       })
+      //用户追加项目id列表
+      const user = await models.User.findOne({
+        where: {
+          UserID: userid
+        }
+      });
+      user.ProjectList = utils.addItemToList(result.ProjectID.toString(), user.ProjectList);
+      await user.save();
     }).catch(function (error) {
       logger.info("项目创建失败: " + error);
     });
