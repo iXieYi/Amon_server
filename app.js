@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-01-21 15:47:01
- * @LastEditTime: 2021-07-07 15:06:55
+ * @LastEditTime: 2021-07-21 17:39:10
  * @LastEditors: Please set LastEditors
  * @Description: 入口
  * @FilePath: /Amon_server/app.js
@@ -25,6 +25,18 @@ const myLogger = require('./server/common/logger');
 const response = require('./server/common/response');
 global.response = response.response;
 var app = express();
+// 解决浏览器跨域options问题
+app.all('*', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Headers', "Content-Type, Content-Length, Authorization, Accept, X-Requested-With,Referer ,User-Agent, userid, token");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("Content-Type", "application/json;charset=utf-8");
+  if (req.method.toLowerCase() == 'options') {
+    res.send(200);  // 让options尝试请求快速结束
+  } else {
+    next();
+  }
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

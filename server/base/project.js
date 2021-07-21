@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:50:02
- * @LastEditTime: 2021-07-21 09:07:59
+ * @LastEditTime: 2021-07-21 17:44:33
  * @LastEditors: Please set LastEditors
  * @Description: 项目管理接口
  * @FilePath: /Amon_server/server/base/project.js
@@ -19,9 +19,21 @@ class projectManager {
   async getProjectList(req, res) {
     let offset = +req.query.offset || 0,
       limit = +req.query.limit || 15;
-
+    // 根据用户id筛选用户所属项目
+    const { userid = '' } = req.headers; //获取用户id
+    // 获取用户信息
+    const user = await models.User.findOne({
+      where: {
+        UserID: userid
+      }
+    });
+    // 获取项目列表
     const data = await models.Project.findAndCountAll({
-      where: {},
+      where: {
+        ProjectID: {
+          [Op.in]: user.ProjectList.split(',')
+        }
+      },
       limit: limit,
       offset: offset
     });
