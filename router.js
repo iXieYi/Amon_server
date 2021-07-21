@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 11:59:44
- * @LastEditTime: 2021-07-16 17:29:08
+ * @LastEditTime: 2021-07-21 19:55:55
  * @LastEditors: Please set LastEditors
  * @Description: 统一配置路由
  * @FilePath: /Amon_server/server/router.js
@@ -44,6 +44,8 @@ router.get('/getProjectList', auth.loginRequired, projectManager.getProjectList)
 router.post('/createProject', auth.loginRequired, projectManager.createProject);                // 创建项目
 router.post('/deleteProject', auth.loginRequired, projectManager.deleteProject);                // 删除项目
 router.post('/editProject', auth.loginRequired, projectManager.editProject);                    // 编辑项目信息
+router.post('/createProjectRole', auth.loginRequired, projectManager.createProjectRole);
+
 
 /** 发布接口 */
 router.post('/publish/publishSampleImage', auth.loginRequired, publishManager.publishSampleImage);      // 样本图像发布接口

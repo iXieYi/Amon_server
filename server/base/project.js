@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:50:02
- * @LastEditTime: 2021-07-21 17:44:33
+ * @LastEditTime: 2021-07-21 20:03:58
  * @LastEditors: Please set LastEditors
  * @Description: 项目管理接口
  * @FilePath: /Amon_server/server/base/project.js
@@ -28,15 +28,25 @@ class projectManager {
       }
     });
     // 获取项目列表
-    const data = await models.Project.findAndCountAll({
-      where: {
-        ProjectID: {
-          [Op.in]: user.ProjectList.split(',')
-        }
-      },
-      limit: limit,
-      offset: offset
-    });
+    var data;
+    if (user.Admin) { // 增加系统管理员逻辑
+      data = await models.Project.findAndCountAll({
+        where: {},
+        limit: limit,
+        offset: offset
+      });
+    } else {
+      data = await models.Project.findAndCountAll({
+        where: {
+          ProjectID: {
+            [Op.in]: user.ProjectList.split(',')
+          }
+        },
+        limit: limit,
+        offset: offset
+      });
+    }
+
     response(res, {
       success: true,
       data,
@@ -199,6 +209,27 @@ class projectManager {
     response(res, {
       success: true,
       msg: "修改完成",
+    });
+  }
+  // 创建项目角色
+  async createProjectRole(req, res) {
+    const {
+      ProjectID = '',
+      RoleName = '',
+      RoleLevel = 0,
+      Sort = 0
+    } = req.body;
+    await models.ProjectRole.create({
+      ProjectID,
+      RoleName,
+      RoleLevel,
+      Sort,
+    }).then(function (result) {
+      response(res, {
+        success: true,
+        msg: "角色创建成功",
+        RoleID: result.RoleID
+      });
     });
   }
 }

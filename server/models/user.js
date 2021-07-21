@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('User', {
     UserID: {
-      type: DataTypes.DECIMAL(20, 0),
+      type: DataTypes.DECIMAL(20,0),
       allowNull: false,
       primaryKey: true
     },
@@ -28,11 +28,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     PositionID: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'Position',
-        key: 'PositionID'
-      }
+      allowNull: true
     },
     BranchID: {
       type: DataTypes.INTEGER,
@@ -80,6 +76,15 @@ module.exports = function (sequelize, DataTypes) {
     ProjectList: {
       type: DataTypes.STRING(2048),
       allowNull: true
+    },
+    RoleList: {
+      type: DataTypes.STRING(2048),
+      allowNull: true
+    },
+    Admin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 0
     }
   }, {
     sequelize,
