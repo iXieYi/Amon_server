@@ -21,6 +21,7 @@ const commonManager = require('./server/base/common');
 
 /** 服务首页 */
 router.get('/', function (req, res, next) {
+    res.type('html');
     res.render('index', { title: '岩石识别服务' });
 });
 
@@ -60,7 +61,8 @@ router.get('/getRockClassToJson', auth.loginRequired, rockClassManager.getRockCl
 
 /** 未找到路由 */
 router.use((req, res) => {
-    res.render('404');
+    res.type('html');
+    res.render('404',{ title: '404' });
 });
 
 module.exports = router;
