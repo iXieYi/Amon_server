@@ -1,15 +1,8 @@
-/*
- * @Author: your name
- * @Date: 2021-07-21 19:24:47
- * @LastEditTime: 2021-07-21 20:04:20
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: /Amon_server/server/models/ProjectRole.js
- */
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('ProjectRole', {
     RoleID: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: true,
       primaryKey: true,
@@ -38,6 +31,11 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true,
       comment: "排序值"
+    },
+    OptionList: {
+      type: DataTypes.STRING(2048),
+      allowNull: false,
+      comment: "操作码"
     },
     CreateTime: {
       type: DataTypes.DATE,
