@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-18 15:53:38
- * @LastEditTime: 2021-07-21 09:02:20
+ * @LastEditTime: 2021-07-22 11:35:04
  * @LastEditors: Please set LastEditors
  * @Description: 通用工具类
  * @FilePath: /Amon_server/server/common/utils.js
@@ -146,7 +146,7 @@ const rockFormatData = (list) => {
 
 }
 
-// 追加id
+// 追加id码
 const addItemToList = (id, listStr) => {
   var result;
   let list = [];
@@ -160,4 +160,21 @@ const addItemToList = (id, listStr) => {
   }
 }
 
-module.exports = { randNum, currentDate, createUseId, rockFormatData, addItemToList }
+// 删除指定的id码
+const removeItemToList = (id, listStr) => {
+  var result;
+  let list = [];
+  var findIndex;
+  if (listStr != null && listStr != '') list = listStr.split(',');
+  if ((id != '' && id != null) && (listStr == null || (findIndex = list.indexOf(id)) != -1)) {
+    list.splice(findIndex, 1);
+    result = list.join(',');
+    return result;
+  } else {
+    return listStr;
+  }
+}
+
+
+
+module.exports = { randNum, currentDate, createUseId, rockFormatData, addItemToList, removeItemToList }
