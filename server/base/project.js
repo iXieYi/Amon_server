@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:50:02
- * @LastEditTime: 2021-07-22 11:43:54
+ * @LastEditTime: 2021-07-22 17:35:24
  * @LastEditors: Please set LastEditors
  * @Description: 项目管理接口
  * @FilePath: /Amon_server/server/base/project.js
@@ -18,7 +18,7 @@ class projectManager {
   /** 获取项目列表 */
   async getProjectList(req, res) {
     let offset = +req.query.offset || 0,
-      limit = +req.query.limit || 15;
+      limit = +req.query.limit || 15, search = req.query.search || '';
     // 根据用户id筛选用户所属项目
     const { userid = '' } = req.headers; //获取用户id
     // 获取用户信息
@@ -31,7 +31,11 @@ class projectManager {
     var data;
     if (user.Admin) { // 增加系统管理员逻辑
       data = await models.Project.findAndCountAll({
-        where: {},
+        where: {
+          ProjectName: {
+            [Op.like]: `%${search}%`
+          }
+        },
         limit: limit,
         offset: offset
       });
@@ -40,6 +44,9 @@ class projectManager {
         where: {
           ProjectID: {
             [Op.in]: user.ProjectList.split(',')
+          },
+          ProjectName: {
+            [Op.like]: `%${search}%`
           }
         },
         limit: limit,
@@ -150,7 +157,10 @@ class projectManager {
       logger.info("项目删除失败: " + error);
     });
   }
+  /** 搜索项目 */
+  async searchProject(req, res) {
 
+  }
   /** 编辑项目 */
   async editProject(req, res) {
     const {

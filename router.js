@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 11:59:44
- * @LastEditTime: 2021-07-21 19:55:55
+ * @LastEditTime: 2021-07-22 14:14:02
  * @LastEditors: Please set LastEditors
  * @Description: 统一配置路由
  * @FilePath: /Amon_server/server/router.js
@@ -33,6 +33,8 @@ router.post('/logout', auth.loginRequired, loginManager.logout);             // 
 router.post('/createUser', signUpManager.createUser);                        // 注册
 router.post('/deleteUser', signUpManager.deleteUser);                        // 删除用户
 router.post('/editUser', signUpManager.editUser);                            // 编辑用户
+router.post('/getSignUpInfo', signUpManager.getSignUpInfo);                  // 获取注册列表数据
+
 
 /** 文件管理 */
 router.post('/uploadFile', auth.loginRequired, uploadManager.uploadFile);    // 单文件上传

@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 08:50:55
- * @LastEditTime: 2021-07-01 16:52:23
+ * @LastEditTime: 2021-07-22 14:12:56
  * @LastEditors: Please set LastEditors
  * @Description: 用户注册接口
  * @FilePath: /Amon_server/server/base/signup
@@ -142,6 +142,11 @@ class signUpManager {
       state: true,
       msg: "删除成功",
     });
+  }
+
+  /** 注册列表数据 */
+  async getSignUpInfo(req, res, next) {
+
   }
 }
 
