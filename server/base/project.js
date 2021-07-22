@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-21 16:50:02
- * @LastEditTime: 2021-07-21 20:03:58
+ * @LastEditTime: 2021-07-22 11:43:54
  * @LastEditors: Please set LastEditors
  * @Description: 项目管理接口
  * @FilePath: /Amon_server/server/base/project.js
@@ -145,6 +145,7 @@ class projectManager {
         success: true,
         msg: "项目删除成功",
       });
+      // TODO 需要触发更新用户PorjectList内容更新
     }).catch(function (error) {
       logger.info("项目删除失败: " + error);
     });
@@ -231,6 +232,14 @@ class projectManager {
         RoleID: result.RoleID
       });
     });
+  }
+  /** 删除项目角色 */
+  async removeProjectRole(req, res) {
+    // TODO 需要触发更新用户RoleList内容更新
+  }
+  /** 删除项目角色操作Options */
+  async removeProjectRole(req, res) {
+    // TODO 需要触发更新角色操作OptionsList内容更新
   }
 }
 
