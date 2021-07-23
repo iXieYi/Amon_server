@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-15 11:59:44
- * @LastEditTime: 2021-07-22 14:14:02
+ * @LastEditTime: 2021-07-23 16:01:09
  * @LastEditors: Please set LastEditors
  * @Description: 统一配置路由
  * @FilePath: /Amon_server/server/router.js
@@ -34,7 +34,7 @@ router.post('/logout', auth.loginRequired, loginManager.logout);             // 
 router.post('/createUser', signUpManager.createUser);                        // 注册
 router.post('/deleteUser', signUpManager.deleteUser);                        // 删除用户
 router.post('/editUser', signUpManager.editUser);                            // 编辑用户
-router.post('/getSignUpInfo', signUpManager.getSignUpInfo);                  // 获取注册列表数据
+router.get('/getSignUpInfo', signUpManager.getSignUpInfo);                  // 获取注册列表数据
 
 
 /** 文件管理 */
@@ -62,7 +62,7 @@ router.get('/getRockClassToJson', auth.loginRequired, rockClassManager.getRockCl
 /** 未找到路由 */
 router.use((req, res) => {
     res.type('html');
-    res.render('404',{ title: '404' });
+    res.render('404', { title: '404' });
 });
 
 module.exports = router;

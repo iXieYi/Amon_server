@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-06-17 08:50:55
- * @LastEditTime: 2021-07-22 14:12:56
+ * @LastEditTime: 2021-07-23 16:03:49
  * @LastEditors: Please set LastEditors
  * @Description: 用户注册接口
  * @FilePath: /Amon_server/server/base/signup
@@ -146,7 +146,108 @@ class signUpManager {
 
   /** 注册列表数据 */
   async getSignUpInfo(req, res, next) {
-
+    const { AccessToken = '' } = req.query;
+    if (AccessToken == 'RockRec') {
+      var data = [];
+      var PracticeQualification = {
+        title: "执业资格",
+        type: "PracticeQualification",
+        items: [
+          {
+            id: 1,
+            title: "一级注册岩土工程师",
+            "desc": ""
+          },
+          {
+            id: 2,
+            title: "一级注册结构工程师",
+            desc: ""
+          },
+          {
+            id: 3,
+            title: "一级注册建筑工程师",
+            desc: ""
+          }
+        ]
+      };
+      var Major = {
+        title: "执业资格",
+        type: "Major",
+        items: [
+          {
+            id: 1,
+            title: "土木专业",
+            "desc": ""
+          },
+          {
+            id: 2,
+            title: "测绘专业",
+            desc: ""
+          },
+          {
+            id: 3,
+            title: "计算机专业",
+            desc: ""
+          }
+        ]
+      };
+      var JobTitle = {
+        title: "助力工程师",
+        type: "JobTitle",
+        items: [
+          {
+            id: 1,
+            title: "工程师",
+            "desc": ""
+          },
+          {
+            id: 2,
+            title: "高级工程师",
+            desc: ""
+          },
+          {
+            id: 3,
+            title: "正高级工程师",
+            desc: ""
+          }
+        ]
+      };
+      var ResearchDirection = {
+        title: "助力工程师",
+        type: "ResearchDirection",
+        items: [
+          {
+            id: 1,
+            title: "勘察设计",
+            "desc": ""
+          },
+          {
+            id: 2,
+            title: "软件研发",
+            desc: ""
+          },
+          {
+            id: 3,
+            title: "数字化BIM",
+            desc: ""
+          }
+        ]
+      };
+      data.push(PracticeQualification);
+      data.push(Major);
+      data.push(JobTitle);
+      data.push(ResearchDirection);
+      response(res, {
+        state: true,
+        msg: "请求成功",
+        data
+      });
+    } else {
+      response(res, {
+        state: false,
+        msg: "无效请求",
+      });
+    }
   }
 }
 
