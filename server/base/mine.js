@@ -1,7 +1,7 @@
 /*
  * @Author: 凡琛
  * @Date: 2021-07-07 16:34:28
- * @LastEditTime: 2021-07-20 09:09:46
+ * @LastEditTime: 2021-07-23 15:01:29
  * @LastEditors: Please set LastEditors
  * @Description: 个人信息维护
  * @FilePath: /Amon_server/server/base/mine.js
@@ -26,7 +26,7 @@ class mineManager {
       }
     });
     console.log('version', version);
-    const { dataValues = {} } = user;
+    const { dataValues = {}, Admin = false } = user;
     // 个人信息
     const baseInfo = {
       "imageUrl": user.Avatar,
@@ -34,6 +34,17 @@ class mineManager {
       "departmant": Branch.Name
     }
     list.push(baseInfo);
+    if (Admin) { // 管理员权限  TODO 需要配置为项目人员也可具备的权限 但只能到页面
+      const item_0 = {
+        "icon": "assets/images/icon/company.png",
+        "itemName": "组织架构管理",
+        "detail": '管理员',
+        "jumpUrl": "/company",
+        "extInfo": {}
+      }
+      list.push(item_0);
+    }
+    // 
     const item_1 = {
       "icon": "assets/images/icon/phone.png",
       "itemName": "手机",
